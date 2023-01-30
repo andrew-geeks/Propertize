@@ -21,6 +21,7 @@ app.use("/account",accRoute);
 mongoose.connect('mongodb://localhost:27017/propertize',{useNewUrlParser: true});
 const connection = mongoose.connection;
 
+
 connection.once('open',()=>{
     console.log("db connected!");
 })

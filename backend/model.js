@@ -27,6 +27,27 @@ let property = new schema(
     }
 )
 
+let account = new schema(
+    {
+        name:{
+            type : String,
+            required : true
+        },
+        email:{
+            type : String,
+            required : true,
+            unique:true,
+        },
+        password:{
+            type: String,
+            required:true
+        },
+        actype : {
+            type : String,
+            required : true
+        }
+    }
+)
 
 const Property = mongoose.model('property',property);
 
