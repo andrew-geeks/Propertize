@@ -50,5 +50,6 @@ let account = new schema(
 )
 
 const Property = mongoose.model('property',property);
+const Account = mongoose.model('account',account);
 
-module.exports = {Property};
+module.exports = {Property,Account};

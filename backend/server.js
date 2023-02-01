@@ -13,7 +13,7 @@ const accRoute = require('./routes/account.js');
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({extended:false}));
 //routeHandler
 app.use("/",homeRoute);
 app.use("/account",accRoute);

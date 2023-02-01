@@ -1,3 +1,4 @@
+import { useEffect,useState } from "react";
 
 let image = require("../../images/logo.png");
 
