@@ -23,10 +23,11 @@ router.post("/signup", (req,res)=>{
 
         newAcc.save((err)=>{
             if(err){
-                res.send(err);
+                res.status(400).json({ err: 'That email is already in use!' });
             }
             else{
-                res.send("success");
+                res.status(200).json({message:"success!"})
+                
             }
         })
     });
