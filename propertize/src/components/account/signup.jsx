@@ -1,10 +1,12 @@
 import { useEffect,useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 let image = require("../../images/logo.png");
 
 function Signup(){
+    const navigate = useNavigate();
+    const [mailValue,setMailValue] = useState("");
     const formData = {name:"",email:"",password:"",cpassword:""};
     const [formValues,setFormValues] = useState(formData);
 
@@ -13,11 +15,14 @@ function Signup(){
         axios.post("http://localhost:4000/account/signup",formValues)
         .then(res =>{
             console.log(res.data)
-            redirect("/dashboard")
+            
+            //navigating after successfull signup
+            navigate("/dashboard")
             
         })
         .catch( error => {
             console.log('actionError', error )
+            setMailValue("Mail Already in Use⚠️!")
           });
     }
 
@@ -33,6 +38,7 @@ function Signup(){
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Create an account👤
               </h1>
+              <p className="mail-warning">{mailValue}</p>
               <form class="space-y-4 md:space-y-6" method="post">
                     <div>
                       <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
