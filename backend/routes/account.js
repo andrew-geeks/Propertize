@@ -39,10 +39,10 @@ router.post("/login",(req,res)=>{
             bcrypt.compare(req.body.password,found.password,(err,result)=>{
                 if(result === true){
                     //correct pass
-                    res.send(found._id)
+                    res.status(200).json({message:"success!"})
                 }
                 else{
-                    res.send("wrong")
+                    res.status(400).json({ err: 'wrong email/password!' });
                 }
             })
         }

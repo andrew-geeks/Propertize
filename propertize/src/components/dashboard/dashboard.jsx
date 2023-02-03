@@ -5,6 +5,7 @@ function Dashboard(){
         <div>
             <NewNavbar/>
             <h1>Dashboard</h1>
+            
         </div>
         
     )
