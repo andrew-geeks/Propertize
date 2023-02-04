@@ -16,6 +16,29 @@ router.get("/getId",(req,res)=>{
     })
 })
 
+router.post("/bsignup", (req,res)=>{
+    
+    bcrypt.hash(req.body.password, saltRounds, (err, hash)=> {
+        const newAcc = new Account({
+            name : req.body.name,
+            email : req.body.email,
+            password : hash,
+            actype : "tenant"
+        });
+
+        newAcc.save((err)=>{
+            if(err){
+                res.status(400).json({ err: 'That email is already in use!' });
+            }
+            else{
+                res.status(200).json({message:"success!"})
+                
+            }
+        })
+    });
+})
+
+
 
 
 router.post("/signup", (req,res)=>{
