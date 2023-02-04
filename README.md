@@ -1,4 +1,4 @@
-# Propertize
+# Propertize🏠🏢
  Propertize is a real-estate(property) management solution for property owners owning multiple properties. It helps to manage multiple residential & commercial properties, assign tenants, pay rent, and more!. 
  
  ### Tech Stack
