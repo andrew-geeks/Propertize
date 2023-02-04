@@ -11,6 +11,7 @@ import Home from './components/home';
 import Signup from './components/account/signup';
 import Dashboard from './components/dashboard/dashboard';
 import Login from './components/account/login';
+import BSignup from './components/account/bsignup'; // business signup
 
 function App() {
   ReactSession.setStoreType("localStorage");
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/signup' element={<Signup/>} />
+            <Route path='/bsignup' element={<BSignup/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
           

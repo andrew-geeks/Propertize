@@ -23,7 +23,7 @@ router.post("/bsignup", (req,res)=>{
             name : req.body.name,
             email : req.body.email,
             password : hash,
-            actype : "tenant"
+            actype : "owner"
         });
 
         newAcc.save((err)=>{
