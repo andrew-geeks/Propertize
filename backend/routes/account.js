@@ -7,9 +7,16 @@ const saltRounds = 11;
 const {Account} = require("../model.js")
 
 
-router.get("/",(req,res)=>{
-    res.send("<h1>Hello Account</h1>");
+router.get("/getId",(req,res)=>{
+    var mail = req.query.mail;
+    Account.findOne({email:mail},(err,found)=>{
+        if(found){
+            res.end(JSON.stringify({id:found._id}))
+        }
+    })
 })
+
+
 
 router.post("/signup", (req,res)=>{
     

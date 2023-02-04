@@ -1,8 +1,19 @@
-import { Dropdown } from 'rsuite'
+import { ReactSession } from 'react-client-session';
+import { useNavigate } from "react-router-dom";
 
 let image = require("../images/account.png")
 let logo = require("../images/logo.png");
 function NewNavbar(){
+    const navigate = useNavigate();
+    //logout function
+    const logout=(e)=>{
+      e.preventDefault();
+      ReactSession.setStoreType("localStorage");
+      ReactSession.remove("id")
+      console.log("logged out!!")
+      navigate("/")
+    }
+
     return(
         
     <nav class="navbar bg-gray border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
@@ -33,7 +44,7 @@ function NewNavbar(){
                 <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
               </li>
               <li>
-                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                <a href='/' onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
               </li>
             </ul>
           </div>

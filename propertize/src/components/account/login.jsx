@@ -1,6 +1,8 @@
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { ReactSession } from 'react-client-session';
+
 
 
 let image = require("../../images/logo.png");
@@ -11,11 +13,22 @@ function Login(){
     const [formValues,setFormValues] = useState(formData);
     const [wrong,setWrong] = useState("");
 
+    
+
     const formSubmit = (e)=>{
         e.preventDefault();
         axios.post("http://localhost:4000/account/login",formValues)
         .then(res =>{
             console.log(res.data)
+            //retrieving id and saving in session
+            axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
+                ReactSession.setStoreType("localStorage");
+                ReactSession.set("id", res.data.id);
+                console.log("id:"+ReactSession.get("id"))
+                //ReactSession.remove("id")  --remove session using key
+                
+            })
+            
             //navigating after successfull login
             navigate("/dashboard")
             
@@ -25,6 +38,8 @@ function Login(){
             setWrong("Wrong Email/Password⚠️!")
           });
     }
+
+
 
     return(
         <section class="bg-white-50 dark:bg-gray-900">

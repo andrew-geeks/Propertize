@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react";
+import { ReactSession } from 'react-client-session';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -15,7 +16,14 @@ function Signup(){
         axios.post("http://localhost:4000/account/signup",formValues)
         .then(res =>{
             console.log(res.data)
-            
+            //retrieving id and saving in session
+            axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
+                ReactSession.setStoreType("localStorage");
+                ReactSession.set("id", res.data.id);
+                console.log("id:"+ReactSession.get("id"))
+                //ReactSession.remove("id")  --remove session using key
+                
+            })
             //navigating after successfull signup
             navigate("/dashboard")
             

@@ -4,14 +4,17 @@ import "bootstrap/dist/css/bootstrap.css";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 
+import { ReactSession } from 'react-client-session';
+
 //components
 import Home from './components/home';
-//import Navbar from './components/navbar';
 import Signup from './components/account/signup';
 import Dashboard from './components/dashboard/dashboard';
 import Login from './components/account/login';
 
 function App() {
+  ReactSession.setStoreType("localStorage");
+
   return (
     <div className='App'>
       <Router>
