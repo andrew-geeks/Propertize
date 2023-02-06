@@ -5,11 +5,16 @@ import axios from 'axios';
 
 let image = require("../../images/logo.png");
 
+var id="";
+
 function Signup(){
     const navigate = useNavigate();
     const [mailValue,setMailValue] = useState("");
     const formData = {name:"",email:"",password:"",cpassword:""};
     const [formValues,setFormValues] = useState(formData);
+
+    //validate if logged in already
+
 
     const formSubmit = (e)=>{
         e.preventDefault();
@@ -18,12 +23,13 @@ function Signup(){
             console.log(res.data)
             //retrieving id and saving in session
             axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
-                ReactSession.setStoreType("localStorage");
-                ReactSession.set("id", res.data.id);
-                console.log("id:"+ReactSession.get("id"))
-                //ReactSession.remove("id")  --remove session using key
-                
+                console.log(res.data);
+                id = res.data.id;
+
             })
+            ReactSession.setStoreType("localStorage");
+            ReactSession.set("id", id);
+            console.log("id:"+ReactSession.get("id"))
             //navigating after successfull signup
             navigate("/dashboard")
             

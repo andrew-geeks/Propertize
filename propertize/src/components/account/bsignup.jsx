@@ -4,7 +4,7 @@ import { ReactSession } from 'react-client-session';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-
+var u_id="";
 let image = require("../../images/logo.png");
 
 function BSignup(){
@@ -20,14 +20,13 @@ function BSignup(){
             console.log(res.data)
             //retrieving id and saving in session
             axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
-                ReactSession.setStoreType("localStorage");
-                ReactSession.set("id", res.data.id);
-                console.log("id:"+ReactSession.get("id"))
-                //ReactSession.remove("id")  --remove session using key
-                
+                console.log(res.data.id);
+                u_id = res.data.id;
             })
+            ReactSession.setStoreType("localStorage");
+            ReactSession.set("id", u_id);
             //navigating after successfull signup
-            navigate("/dashboard")
+            navigate("/bdashboard")
             
         })
         .catch( error => {

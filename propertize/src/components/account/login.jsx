@@ -6,6 +6,8 @@ import { ReactSession } from 'react-client-session';
 
 
 let image = require("../../images/logo.png");
+var actype = "";
+var id="";
 
 function Login(){
     const navigate = useNavigate();
@@ -13,24 +15,44 @@ function Login(){
     const [formValues,setFormValues] = useState(formData);
     const [wrong,setWrong] = useState("");
 
+    //validate if logged in already
     
+    function redirect(actype){
+        if(actype === "tenant" ){
+            navigate("/dashboard")
+        }
+        else{
+            navigate("/bdashboard")
+        }
+    }
 
-    const formSubmit = (e)=>{
+    const formSubmit = (e)=> {
         e.preventDefault();
         axios.post("http://localhost:4000/account/login",formValues)
-        .then(res =>{
+        .then(async res =>{
             console.log(res.data)
             //retrieving id and saving in session
-            axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
-                ReactSession.setStoreType("localStorage");
-                ReactSession.set("id", res.data.id);
-                console.log("id:"+ReactSession.get("id"))
+            await axios.get("http://localhost:4000/account/getId?mail="+formValues.email).then(res=>{
+
+                console.log(res.data);
+                id = res.data.id;
                 //ReactSession.remove("id")  --remove session using key
                 
             })
+            ReactSession.setStoreType("localStorage");
+            ReactSession.set("id",id);
+            console.log("id:"+ReactSession.get("id"))
+
+            //check owner or tenant?
+            await axios.get("http://localhost:4000/account/getActype?id="+id).then(res=>{
+                actype = res.data.actype;
+                redirect(actype)
+            })
+            
             
             //navigating after successfull login
-            navigate("/dashboard")
+            
+
             
         })
         .catch( error => {

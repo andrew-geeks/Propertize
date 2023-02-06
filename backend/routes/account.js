@@ -16,6 +16,18 @@ router.get("/getId",(req,res)=>{
     })
 })
 
+
+router.get("/getActype",(req,res)=>{
+    var id = req.query.id;
+    Account.findOne({_id:id},(err,found)=>{
+        if(found){
+            res.end(JSON.stringify({actype:found.actype}))
+        }
+    })
+})
+
+
+
 router.post("/bsignup", (req,res)=>{
     
     bcrypt.hash(req.body.password, saltRounds, (err, hash)=> {
@@ -32,7 +44,6 @@ router.post("/bsignup", (req,res)=>{
             }
             else{
                 res.status(200).json({message:"success!"})
-                
             }
         })
     });

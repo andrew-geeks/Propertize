@@ -10,8 +10,9 @@ import { ReactSession } from 'react-client-session';
 import Home from './components/home';
 import Signup from './components/account/signup';
 import Dashboard from './components/dashboard/dashboard';
-import Login from './components/account/login';
+import Login from './components/account/login'; 
 import BSignup from './components/account/bsignup'; // business signup
+import BDashboard from './components/dashboard/bdashboard'; //business dashboard[owner]
 
 function App() {
   ReactSession.setStoreType("localStorage");
@@ -25,6 +26,7 @@ function App() {
             <Route path='/bsignup' element={<BSignup/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/Bdashboard' element={<BDashboard/>} />
           
           </Routes>
           
