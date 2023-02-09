@@ -7,19 +7,12 @@ ReactSession.setStoreType("localStorage");
 
 function BDashboard(){
     
-    const loggedIn = ReactSession.get("id");
-
-    if(loggedIn === undefined){
-        return <Navigate replace to="/login" />;
-    }
-    else{
-        return(
-            <div>
-                <NewNavbar/>
-                <h1>Business Dashboard</h1>
-            </div>
-        )
-    }
+    return(
+        <div>
+            <NewNavbar/>
+            <h1>Business Dashboard</h1>
+        </div>
+    )
 
     
 }

@@ -2,7 +2,7 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
+import PrivateRoute from 'react-private-route'
 
 import { ReactSession } from 'react-client-session';
 
@@ -14,8 +14,20 @@ import Login from './components/account/login';
 import BSignup from './components/account/bsignup'; // business signup
 import BDashboard from './components/dashboard/bdashboard'; //business dashboard[owner]
 
-function App() {
+function isLoggedIn(){
   ReactSession.setStoreType("localStorage");
+  const loggedIn = ReactSession.get("id");
+  if(loggedIn === undefined){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+
+function App() {
+  
 
   return (
     <div className='App'>
@@ -27,7 +39,6 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/Bdashboard' element={<BDashboard/>} />
-          
           </Routes>
           
       </Router>
