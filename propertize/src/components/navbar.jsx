@@ -1,47 +1,268 @@
 import { Link } from 'react-router-dom';
 
-let image = require("../images/logo.png");
+import {
+    createStyles,
+    Header,
+    HoverCard,
+    Group,
+    Button,
+    UnstyledButton,
+    Text,
+    SimpleGrid,
+    ThemeIcon,
+    Anchor,
+    Divider,
+    Center,
+    Box,
+    Burger,
+    Drawer,
+    Collapse,
+    ScrollArea,
+  } from '@mantine/core';
+  import { MantineLogo } from '@mantine/ds';
+  import { useDisclosure } from '@mantine/hooks';
+  import {
+    IconNotification,
+    IconCode,
+    IconBook,
+    IconChartPie3,
+    IconFingerprint,
+    IconCoin,
+    IconChevronDown,
+  } from '@tabler/icons';
+  
+  const useStyles = createStyles((theme) => ({
+    link: {
+      display: 'flex',
+      alignItems: 'center',
+      height: '100%',
+      paddingLeft: theme.spacing.md,
+      paddingRight: theme.spacing.md,
+      textDecoration: 'none',
+      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      fontWeight: 500,
+      fontSize: theme.fontSizes.sm,
+  
+      [theme.fn.smallerThan('sm')]: {
+        height: 42,
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+      },
+  
+      ...theme.fn.hover({
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      }),
+    },
+  
+    subLink: {
+      width: '100%',
+      padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+      borderRadius: theme.radius.md,
+  
+      ...theme.fn.hover({
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+      }),
+  
+      '&:active': theme.activeStyles,
+    },
+  
+    dropdownFooter: {
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+      margin: -theme.spacing.md,
+      marginTop: theme.spacing.sm,
+      padding: `${theme.spacing.md}px ${theme.spacing.md * 2}px`,
+      paddingBottom: theme.spacing.xl,
+      borderTop: `1px solid ${
+        theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]
+      }`,
+    },
+  
+    hiddenMobile: {
+      [theme.fn.smallerThan('sm')]: {
+        display: 'none',
+      },
+    },
+  
+    hiddenDesktop: {
+      [theme.fn.largerThan('sm')]: {
+        display: 'none',
+      },
+    },
+  }));
 
-function Navbar(){
-    return(
-        
-    <nav class="navbar bg-gray border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
-    <div class="container flex flex-wrap items-center justify-between mx-auto">
-    <a href="/" class="flex items-center logo-text">
-        <img src={image} class="h-6 mr-1 sm:h-9" alt="Logo" width="70"/>
-        <span class="self-center  font-semibold whitespace-nowrap dark:text-white ">PROPERTIZE</span>
-    </a>
-    <div class="flex md:order-2">
-        <Link to="/signup">
-            <button type="button" class="text-white bg-purple-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
-        </Link>
-        <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-        </button>
-    </div>
-    <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-        <ul className="flex flex-col p-1 mt-4  rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
-            <a href="/" className="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
-        </li>
-        <li>
-            <a href="/" className=" navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-        </li>
-        <li>
-            <a href="/" className="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-        </li>
-        <li>
-            <a href="/" className="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-        </li>
-        </ul>
-    </div>
-    </div>
-    </nav>
+  let image = require("../images/logo.png");
 
-        
-
-    )
-}
-
-export default Navbar;
+  
+  const mockdata = [
+    {
+      icon: IconCode,
+      title: 'Open source',
+      description: 'This Pokémon’s cry is very loud and distracting',
+    },
+    {
+      icon: IconCoin,
+      title: 'Free for everyone',
+      description: 'The fluid of Smeargle’s tail secretions changes',
+    },
+    {
+      icon: IconBook,
+      title: 'Documentation',
+      description: 'Yanma is capable of seeing 360 degrees without',
+    },
+    {
+      icon: IconFingerprint,
+      title: 'Security',
+      description: 'The shell’s rounded shape and the grooves on its.',
+    },
+    {
+      icon: IconChartPie3,
+      title: 'Analytics',
+      description: 'This Pokémon uses its flying ability to quickly chase',
+    },
+    {
+      icon: IconNotification,
+      title: 'Notifications',
+      description: 'Combusken battles with the intensely hot flames it spews',
+    },
+  ];
+  
+  export function Navbar() {
+    const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+    const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+    const { classes, theme } = useStyles();
+  
+    const links = mockdata.map((item) => (
+      <UnstyledButton className={classes.subLink} key={item.title}>
+        <Group noWrap align="flex-start">
+          <ThemeIcon size={34} variant="default" radius="md">
+            <item.icon size={22} color={theme.fn.primaryColor()} />
+          </ThemeIcon>
+          <div>
+            <Text size="sm" weight={500}>
+              {item.title}
+            </Text>
+            <Text size="xs" color="dimmed">
+              {item.description}
+            </Text>
+          </div>
+        </Group>
+      </UnstyledButton>
+    ));
+  
+    return (
+      <Box pb={120}>
+        <Header height={60} px="md">
+          <Group position="apart" sx={{ height: '100%' }}>
+          <a href="/" class="flex items-center logo-text">
+          <img src={image} class="h-6 mr-1 sm:h-9" alt="Logo" width="70"/>
+          <span class="self-center  font-semibold whitespace-nowrap dark:text-white ">PROPERTIZE</span>
+          </a>
+            <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
+              <a href="/" className={classes.link}>
+                Home
+              </a>
+              <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+                <HoverCard.Target>
+                  <a href="/" className={classes.link}>
+                    <Center inline>
+                      <Box component="span" mr={5}>
+                        Features
+                      </Box>
+                      <IconChevronDown size={16} color={theme.fn.primaryColor()} />
+                    </Center>
+                  </a>
+                </HoverCard.Target>
+  
+                <HoverCard.Dropdown sx={{ overflow: 'hidden' }}>
+                  <Group position="apart" px="md">
+                    <Text weight={500}>Features</Text>
+                    <Anchor href="#" size="xs">
+                      View all
+                    </Anchor>
+                  </Group>
+  
+                  <Divider
+                    my="sm"
+                    mx="-md"
+                    color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
+                  />
+  
+                  <SimpleGrid cols={2} spacing={0}>
+                    {links}
+                  </SimpleGrid>
+  
+                  <div className={classes.dropdownFooter}>
+                    <Group position="apart">
+                      <div>
+                        <Text weight={500} size="sm">
+                          Get started
+                        </Text>
+                        <Text size="xs" color="dimmed">
+                          Their food sources have decreased, and their numbers
+                        </Text>
+                      </div>
+                      <Button variant="default">Get started</Button>
+                    </Group>
+                  </div>
+                </HoverCard.Dropdown>
+              </HoverCard>
+              <a href="#" className={classes.link}>
+                Predict✨
+              </a>
+              <a href="#" className={classes.link}>
+                Business
+              </a>
+            </Group>
+  
+            <Group className={classes.hiddenMobile}>
+              <Button variant="outline" color="blue">Log in</Button>
+              <Button color="red" variant="outline">Sign up</Button>
+            </Group>
+  
+            <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
+          </Group>
+        </Header>
+  
+        <Drawer
+          opened={drawerOpened}
+          onClose={closeDrawer}
+          size="100%"
+          padding="md"
+          title="Navigation"
+          className={classes.hiddenDesktop}
+          zIndex={1000000}
+        >
+          <ScrollArea sx={{ height: 'calc(100vh - 60px)' }} mx="-md">
+            <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+  
+            <a href="#" className={classes.link}>
+              Home
+            </a>
+            <UnstyledButton className={classes.link} onClick={toggleLinks}>
+              <Center inline>
+                <Box component="span" mr={5}>
+                  Features
+                </Box>
+                <IconChevronDown size={16} color={theme.fn.primaryColor()} />
+              </Center>
+            </UnstyledButton>
+            <Collapse in={linksOpened}>{links}</Collapse>
+            <a href="#" className={classes.link}>
+              Learn
+            </a>
+            <a href="#" className={classes.link}>
+              Academy
+            </a>
+  
+            <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+  
+            <Group position="center" grow pb="xl" px="md">
+              <Button variant="default">Log in1</Button>
+              <Button variant="default" color="red">Sign up</Button>
+            </Group>
+          </ScrollArea>
+        </Drawer>
+      </Box>
+    );
+  }
