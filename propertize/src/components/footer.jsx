@@ -51,6 +51,7 @@ export function Footer() {
             <IconBrandInstagram size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
+        <br/>
       </Container>
     </div>
   );

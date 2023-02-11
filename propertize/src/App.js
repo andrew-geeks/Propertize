@@ -13,18 +13,10 @@ import Dashboard from './components/dashboard/dashboard';
 import Login from './components/account/login'; 
 import BSignup from './components/account/bsignup'; // business signup
 import BDashboard from './components/dashboard/bdashboard'; //business dashboard[owner]
-import { HeaderMegaMenu } from './components/thome';
-function isLoggedIn(){
-  ReactSession.setStoreType("localStorage");
-  const loggedIn = ReactSession.get("id");
+import { AuthenticationTitle } from './components/account/tlogin';
 
-  if(loggedIn === undefined){
-    return false;
-  }
-  else{
-    return true;
-  }
-}
+
+
 
 export const PrivateRoute = ({ children}) => {
   ReactSession.setStoreType("localStorage");
@@ -50,10 +42,10 @@ function App() {
       <Router>
           <Routes>
             <Route path='/' element={<Home/>} />
-            <Route path='/h' element={<HeaderMegaMenu/>} />
             <Route path='/signup' element={<Signup/>} />
             <Route path='/bsignup' element={<BSignup/>} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/tlogin' element={<AuthenticationTitle/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
           </Routes>

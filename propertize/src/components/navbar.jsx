@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
     createStyles,
@@ -31,6 +32,8 @@ import {
     IconChevronDown,
   } from '@tabler/icons';
   
+
+
   const useStyles = createStyles((theme) => ({
     link: {
       display: 'flex',
@@ -128,6 +131,7 @@ import {
   ];
   
   export function Navbar() {
+    const navigate = useNavigate();
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { classes, theme } = useStyles();
@@ -151,6 +155,7 @@ import {
     ));
   
     return (
+        
       <Box pb={120}>
         <Header height={60} px="md">
           <Group position="apart" sx={{ height: '100%' }}>
@@ -216,8 +221,8 @@ import {
             </Group>
   
             <Group className={classes.hiddenMobile}>
-              <Button variant="outline" color="blue">Log in</Button>
-              <Button color="red" variant="outline">Sign up</Button>
+              <Button variant="outline" color="blue" onClick={()=> navigate("/login")}>Log in</Button>
+              <Button color="red" variant="outline" onClick={()=> navigate("/signup")}>Sign up</Button>
             </Group>
   
             <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
