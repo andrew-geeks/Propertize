@@ -19,6 +19,7 @@ import { Predict } from './components/predict';
 
 
 
+
 export const PrivateRoute = ({ children}) => {
   ReactSession.setStoreType("localStorage");
   const loggedIn = ReactSession.get("id");
