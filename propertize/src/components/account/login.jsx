@@ -3,13 +3,27 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ReactSession } from 'react-client-session';
 
-
+import {
+    TextInput,
+    PasswordInput,
+    Checkbox,
+    Anchor,
+    Paper,
+    Title,
+    Text,
+    Container,
+    Group,
+    Button,
+  } from '@mantine/core';
+import { Footer } from '../footer';
 
 let image = require("../../images/logo.png");
 var actype = "";
 var id="";
 
-function Login(){
+
+  
+  export function Login() {
     const navigate = useNavigate();
     const formData = {email:"",password:""};
     const [formValues,setFormValues] = useState(formData);
@@ -52,7 +66,6 @@ function Login(){
             
             //navigating after successfull login
             
-
             
         })
         .catch( error => {
@@ -61,48 +74,37 @@ function Login(){
           });
     }
 
-
-
-    return(
-        <section class="bg-white-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 auth-sec">
-      <a href="/" class="logo-text flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img class="w-15 h-20 mr-2" src={image} alt="logo"/>
-          PROPERTIZE    
-      </a>
-      <div class="login-temp w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Login👤
-              </h1>
-              <p className="mail-warning">{wrong}</p>
-              <form class="space-y-4 md:space-y-6" action="#">
-                  <div>
-                      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" value={formValues.email} onChange={(e)=> setFormValues({...formValues,email : e.target.value})} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required/>
-                  </div>
-                  <div>
-                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" value={formValues.password} onChange={(e)=> setFormValues({...formValues,password : e.target.value})} placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
-                  </div>
-                  <button
-                    type="submit"
-                    onClick={formSubmit}
-                    disabled={
-                            formValues.email===""?true:false || 
-                            formValues.password===""?true:false
-                    } 
-                    class="w-full text-white bg-green-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
-                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Dont have an account? <a href="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Signup here</a>
-                  </p>
-              </form>
-          </div>
-      </div>
-  </div>
-</section>
-    )
-}
-
-
-export default Login;
+    return (
+      <section>
+      <Container size={420} my={40}>
+        <Title
+          align="center"
+          sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+        >
+          Welcome back!
+        </Title>
+        <Text color="dimmed" size="sm" align="center" mt={5}>
+          Do not have an account yet?{' '}
+          <Anchor href="#" size="sm" onClick={(event) => event.preventDefault()}>
+            Create account
+          </Anchor>
+        </Text>
+        <p className="mail-warning">{wrong}</p>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <TextInput label="Email" placeholder="you@something.com" value={formValues.email} onChange={(e)=> setFormValues({...formValues,email : e.target.value})} required />
+          <PasswordInput label="Password" placeholder="" required mt="md" value={formValues.password} onChange={(e)=> setFormValues({...formValues,password : e.target.value})}/>
+          <Group position="apart" mt="lg">
+            <Checkbox label="Remember me" sx={{ lineHeight: 1 }} />
+            <Anchor onClick={(event) => event.preventDefault()} href="#" size="sm">
+              Forgot password?
+            </Anchor>
+          </Group>
+          <Button fullWidth mt="xl" variant='outline' radius="lg" color="lime" onClick={formSubmit} >
+            Log in
+          </Button>
+        </Paper>
+      </Container>
+      <Footer/>
+      </section>
+    );
+  }

@@ -212,11 +212,11 @@ import {
                   </div>
                 </HoverCard.Dropdown>
               </HoverCard>
-              <a href="#" className={classes.link}>
+              <a href="/predict" className={classes.link}>
                 Predict✨
               </a>
-              <a href="#" className={classes.link}>
-                Business
+              <a href="/bsignup" className={classes.link}>
+                Business📈
               </a>
             </Group>
   

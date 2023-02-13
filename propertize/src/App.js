@@ -10,10 +10,11 @@ import { ReactSession } from 'react-client-session';
 import Home from './components/home';
 import Signup from './components/account/signup';
 import Dashboard from './components/dashboard/dashboard';
-import Login from './components/account/login'; 
+import { Login  } from './components/account/login';
 import BSignup from './components/account/bsignup'; // business signup
 import BDashboard from './components/dashboard/bdashboard'; //business dashboard[owner]
-import { AuthenticationTitle } from './components/account/tlogin';
+import { Predict } from './components/predict';
+
 
 
 
@@ -45,7 +46,7 @@ function App() {
             <Route path='/signup' element={<Signup/>} />
             <Route path='/bsignup' element={<BSignup/>} />
             <Route path='/login' element={<Login/>} />
-            <Route path='/tlogin' element={<AuthenticationTitle/>} />
+            <Route path='/predict' element={<Predict/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
           </Routes>
