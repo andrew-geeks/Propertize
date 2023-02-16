@@ -1,4 +1,6 @@
+import { ReactSession } from 'react-client-session';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import {
   createStyles,
   Container,
@@ -89,15 +91,28 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+let image = require("../images/logo.png");
+
 interface HeaderTabsProps {
   user: { name: string; image: string };
   tabs: string[];
 }
 
+
+
+
 export function Bnav({ user, tabs }: HeaderTabsProps) {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const navigate = useNavigate();
+  const logout=(e)=>{
+    e.preventDefault();
+    ReactSession.setStoreType("localStorage");
+    ReactSession.remove("id")
+    console.log("logged out!!")
+    navigate("/")
+  }
 
   const items = tabs.map((tab) => (
     <Tabs.Tab value={tab} key={tab}>
@@ -109,8 +124,10 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
     <div className={classes.header}>
       <Container className={classes.mainSection}>
         <Group position="apart">
-          <MantineLogo size={28} />
-
+          <a href="/" class="flex items-center logo-text">
+          <img src={image} class="h-6 mr-1 sm:h-9" alt="Logo" width="70"/>
+          <span class="self-center  font-semibold whitespace-nowrap dark:text-white ">PROPERTIZE</span>
+          </a>
           <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
 
           <Menu
@@ -149,17 +166,9 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
               <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
                 Change account
               </Menu.Item>
-              <Menu.Item icon={<IconLogout size={14} stroke={1.5} />}>Logout</Menu.Item>
+              <Menu.Item color="red" icon={<IconLogout size={14} stroke={1.5} />} onClick={logout}>Logout</Menu.Item>
 
               <Menu.Divider />
-
-              <Menu.Label>Danger zone</Menu.Label>
-              <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
-                Pause subscription
-              </Menu.Item>
-              <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
-                Delete account
-              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
         </Group>

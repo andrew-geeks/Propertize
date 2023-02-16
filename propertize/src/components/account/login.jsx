@@ -55,11 +55,12 @@ var id="";
             })
             ReactSession.setStoreType("localStorage");
             ReactSession.set("id",id);
-            console.log("id:"+ReactSession.get("id"))
+            
 
             //check owner or tenant?
             await axios.get("http://localhost:4000/account/getActype?id="+id).then(res=>{
                 actype = res.data.actype;
+                ReactSession.set("actype",actype);
                 redirect(actype)
             })
             

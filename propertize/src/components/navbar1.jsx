@@ -1,78 +1,191 @@
 import { ReactSession } from 'react-client-session';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import {
+  createStyles,
+  Container,
+  Avatar,
+  UnstyledButton,
+  Group,
+  Text,
+  Menu,
+  Tabs,
+  Burger,
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import {
+  IconLogout,
+  IconHeart,
+  IconStar,
+  IconMessage,
+  IconSettings,
+  IconPlayerPause,
+  IconTrash,
+  IconSwitchHorizontal,
+  IconChevronDown,
+} from '@tabler/icons';
+import { MantineLogo } from '@mantine/ds';
 
-let image = require("../images/account.png")
-let logo = require("../images/logo.png");
-function NewNavbar(){
-    const navigate = useNavigate();
-    //logout function
-    const logout=(e)=>{
-      e.preventDefault();
-      ReactSession.setStoreType("localStorage");
-      ReactSession.remove("id")
-      console.log("logged out!!")
-      navigate("/")
-    }
+const useStyles = createStyles((theme) => ({
+  header: {
+    paddingTop: theme.spacing.sm,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderBottom: `1px solid ${
+      theme.colorScheme === 'dark' ? 'transparent' : theme.colors.gray[2]
+    }`,
+    marginBottom: 120,
+  },
 
-    return(
-        
-    <nav class="navbar bg-gray border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
-      <div class="container flex flex-wrap items-center justify-between mx-auto">
-      <a href="/" class="flex items-center logo-text">
-          <img src={logo} class="h-6 mr-3 sm:h-9" alt="Logo" />
-          <span class=" self-center text-xl font-semibold whitespace-nowrap dark:text-white">PROPERTIZE</span>
-      </a>
-      <div className="flex items-center md:order-2">
-          <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-            <span className="sr-only">Open user menu</span>
-            <img className="w-8 h-8 rounded-full nav-img" src={image} alt=""/>
-          </button>
-          
-          <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 block" data-popper-placement="bottom" id="user-dropdown">
-            <div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-              <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-            </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-              </li>
-              <li>
-                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-              </li>
-              <li>
-                <a href='/' onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-              </li>
-            </ul>
-          </div>
-          <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-            <span className="sr-only">Open main menu</span>
-            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-        </button>
-      </div>
-      <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-        <ul className="flex flex-col p-1 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="/dashboard" class="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Dashboard</a>
-          </li>
-          <li>
-            <a href="/" class="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Maintenance</a>
-          </li>
-          <li>
-            <a href="/" class="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Predict✨</a>
-          </li>
-          <li>
-            <a href="/" class="navbar-comp block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-          </li>
-        </ul>
-      </div>
-      </div>
-    </nav>
+  mainSection: {
+    paddingBottom: theme.spacing.sm,
+  },
 
-    )
+  user: {
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+    borderRadius: theme.radius.sm,
+    transition: 'background-color 100ms ease',
+
+    '&:hover': {
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    },
+
+    [theme.fn.smallerThan('xs')]: {
+      display: 'none',
+    },
+  },
+
+  burger: {
+    [theme.fn.largerThan('xs')]: {
+      display: 'none',
+    },
+  },
+
+  userActive: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+  },
+
+  tabs: {
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    },
+  },
+
+  tabsList: {
+    borderBottom: '0 !important',
+  },
+
+  tab: {
+    fontWeight: 500,
+    height: 38,
+    backgroundColor: 'transparent',
+
+    '&:hover': {
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+    },
+
+    '&[data-active]': {
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+      borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[2],
+    },
+  },
+}));
+
+let image = require("../images/logo.png");
+
+interface HeaderTabsProps {
+  user: { name: string; image: string };
+  tabs: string[];
 }
 
-export default NewNavbar;
+
+
+
+export function Nav({ user, tabs }: HeaderTabsProps) {
+  const { classes, theme, cx } = useStyles();
+  const [opened, { toggle }] = useDisclosure(false);
+  const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const navigate = useNavigate();
+  const logout=(e)=>{
+    e.preventDefault();
+    ReactSession.setStoreType("localStorage");
+    ReactSession.remove("id")
+    console.log("logged out!!")
+    navigate("/")
+  }
+
+  const items = tabs.map((tab) => (
+    <Tabs.Tab value={tab} key={tab}>
+      {tab}
+    </Tabs.Tab>
+  ));
+
+  return (
+    <div className={classes.header}>
+      <Container className={classes.mainSection}>
+        <Group position="apart">
+          <a href="/" class="flex items-center logo-text">
+          <img src={image} class="h-6 mr-1 sm:h-9" alt="Logo" width="70"/>
+          <span class="self-center  font-semibold whitespace-nowrap dark:text-white ">PROPERTIZE</span>
+          </a>
+          <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+
+          <Menu
+            width={260}
+            position="bottom-end"
+            transition="pop-top-right"
+            onClose={() => setUserMenuOpened(false)}
+            onOpen={() => setUserMenuOpened(true)}
+          >
+            <Menu.Target>
+              <UnstyledButton
+                className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
+              >
+                <Group spacing={7}>
+                  <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
+                  <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
+                    {user.name}
+                  </Text>
+                  <IconChevronDown size={12} stroke={1.5} />
+                </Group>
+              </UnstyledButton>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
+                Liked posts
+              </Menu.Item>
+              <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                Saved posts
+              </Menu.Item>
+              <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
+                Your comments
+              </Menu.Item>
+
+              <Menu.Label>Settings</Menu.Label>
+              <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
+              <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
+                Change account
+              </Menu.Item>
+              <Menu.Item color="red" icon={<IconLogout size={14} stroke={1.5} />} onClick={logout}>Logout</Menu.Item>
+
+              <Menu.Divider />
+            </Menu.Dropdown>
+          </Menu>
+        </Group>
+      </Container>
+      <Container>
+        <Tabs
+          defaultValue="Home"
+          variant="outline"
+          classNames={{
+            root: classes.tabs,
+            tabsList: classes.tabsList,
+            tab: classes.tab,
+          }}
+        >
+          <Tabs.List>{items}</Tabs.List>
+        </Tabs>
+      </Container>
+    </div>
+  );
+}

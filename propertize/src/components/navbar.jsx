@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import { ReactSession } from 'react-client-session';
 import {
     createStyles,
     Header,
@@ -135,6 +135,9 @@ import {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { classes, theme } = useStyles();
+
+    ReactSession.setStoreType("localStorage");
+    const loggedIn = ReactSession.get("id");
   
     const links = mockdata.map((item) => (
       <UnstyledButton className={classes.subLink} key={item.title}>
@@ -221,8 +224,8 @@ import {
             </Group>
   
             <Group className={classes.hiddenMobile}>
-              <Button variant="outline" color="blue" onClick={()=> navigate("/login")}>Log in</Button>
-              <Button color="red" variant="outline" onClick={()=> navigate("/signup")}>Sign up</Button>
+              <Button variant="outline" color="blue" onClick={()=> navigate("/login")} disabled={loggedIn === undefined?false:true}>Log in</Button>
+              <Button color="red" variant="outline" onClick={()=> navigate("/signup")} disabled={loggedIn === undefined?false:true}>Sign up</Button>
             </Group>
   
             <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
@@ -263,8 +266,8 @@ import {
             <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
   
             <Group position="center" grow pb="xl" px="md">
-              <Button variant="default">Log in1</Button>
-              <Button variant="default" color="red">Sign up</Button>
+              <Button variant="default" disabled={loggedIn === undefined?false:true}>Log in</Button>
+              <Button variant="default" color="red" disabled={loggedIn === undefined?false:true}>Sign up</Button>
             </Group>
           </ScrollArea>
         </Drawer>

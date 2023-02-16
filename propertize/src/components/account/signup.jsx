@@ -12,8 +12,20 @@ function Signup(){
     const [mailValue,setMailValue] = useState("");
     const formData = {name:"",email:"",password:"",cpassword:""};
     const [formValues,setFormValues] = useState(formData);
+    const [pwarning,setpwarning] = useState("");
 
     //validate if logged in already
+
+    const validate = (e) =>{
+        var pass = e;
+        if(pass!=="" && pass.length<6 && /[A-Z]/.test(pass) === false){
+            setpwarning("Password must contain atleast 6 characters!");
+        }
+        else{
+            setpwarning("")
+        }
+        
+    }
     
 
     const formSubmit = (e)=>{
@@ -64,8 +76,9 @@ function Signup(){
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" value={formValues.password} onChange={(e)=> setFormValues({...formValues,password : e.target.value})} placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                      <input type="password" name="password" id="password" value={formValues.password} onChange={(e)=> {setFormValues({...formValues,password : e.target.value});validate(e.target.value)}} placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                   </div>
+                  <p className="mail-warning">{pwarning}</p>
                   <div>
                       <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                       <input type="password" name="confirm-password" id="confirm-password" value={formValues.cpassword} onChange={(e)=> setFormValues({...formValues,cpassword : e.target.value})} placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
