@@ -182,6 +182,7 @@ export function Nav({ user, tabs }: HeaderTabsProps) {
             tabsList: classes.tabsList,
             tab: classes.tab,
           }}
+          onClick={()=> navigate("/login")}
         >
           <Tabs.List>{items}</Tabs.List>
         </Tabs>
