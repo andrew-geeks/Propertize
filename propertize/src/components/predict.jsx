@@ -9,7 +9,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   input: {
-    height: 'auto',
+    height: '60px',
     paddingTop: 18,
   },
 
@@ -32,32 +32,59 @@ export function Predict(){
     return(
         <section>
             <Navbar/>
-            <div style={{"padding-left":"5%"}}>
-                <h2>Predict Rent for a Property!</h2>
-                <em>Predicts residential property rent based on given parameters, accuracy level upto 75%</em>
-                <br/><br/>
-                <p>Enter details below</p>
-                <div>
-                <Select
-                    style={{ marginTop: 20, zIndex: 2 ,width:300}}
-                    data={['Bangalore', 'Mumbai', 'Chennai', 'Kolkata','Delhi']}
-                    placeholder=""
-                    label="Select your metro city"
-                    classNames={classes}
-                />
-                <br/>
-                <TextInput style={{ marginTop: 20, zIndex: 2 ,width:300}} label="Size(sqft)" placeholder="" classNames={classes} />
-                <br/>
-                <Select
-                    style={{ marginTop: 20, zIndex: 2 ,width:300}}
-                    data={['Carpet Area', 'Super Area']}
-                    placeholder=""
-                    label="Select Area Type"
-                    classNames={classes}
-                />
-
+            <div style={{"text-align":"center"}}>
+            <h2>Predict rent!</h2>
+            <em>A machine learning engine that helps to predict rent for residential properties in select cities!</em>
             </div>
-            </div>
+            
+            <br/><br/>
+            <div className="divForm">
+            <Select
+              style={{ marginTop: 20, zIndex: 2 }}
+              data={['Kolkata', 'Chennai','Mumbai','Delhi','Bangalore']}
+              placeholder="Pick one"
+              label="Select your city"
+              classNames={classes}
+              required
+            />
+          <br/>
+          <TextInput label="BHK" placeholder="1,2,3 or more..."  classNames={classes} required type="number"/>
+          <br/>
+          <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} required type="number"/>
+          <br/>
+          <Select
+            style={{ marginTop: 20, zIndex: 2 }}
+            data={['Carpet Area', 'Super Area']}
+            placeholder="Pick one"
+            label="Select area type"
+            classNames={classes}
+            required
+          />
+          <br/>
+          <TextInput label="Total Bathrooms" placeholder="1 or more"  classNames={classes} required type="number"/>
+          <br/>
+          <TextInput label="Apartment Floor" placeholder="0,1,2,3"  classNames={classes} required type="number"/>
+          <br/>
+          <TextInput label="Total Floors" placeholder="1,2,3"  classNames={classes} required type="number"/>
+          <br/>
+          <Select
+            style={{ marginTop: 20, zIndex: 2 }}
+            data={['Unfurnished', 'Semi-Furnished','Furnished']}
+            placeholder="Pick one"
+            label="Select Furnishing Status"
+            classNames={classes}
+            required
+          />
+          <br/>
+          <Select
+            style={{ marginTop: 20, zIndex: 2 }}
+            data={['Bachelors', 'Family','Bachelors/Family']}
+            placeholder="Pick one"
+            label="Prefered Tenants"
+            classNames={classes}
+            required
+          />
+    </div>          
         </section>
     )
 }
