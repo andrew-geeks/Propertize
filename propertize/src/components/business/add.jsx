@@ -1,7 +1,12 @@
-
+import { Bnav } from "../bnav"
 
 export function Add(){
     return(
-        <h1>Add Property</h1>
+        <section>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
+            <h3>Add Your Property</h3>
+            
+        </section>
+
     )
 }

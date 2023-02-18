@@ -9,10 +9,16 @@ let property = new schema(
         p_name:{
             type : String
         },
+        p_desc:{
+            type : String
+        },
         p_type:{
             type : String
         },
         p_size:{
+            type : Number
+        },
+        bhk:{
             type : Number
         },
         location:{

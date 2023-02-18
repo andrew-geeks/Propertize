@@ -95,7 +95,7 @@ let image = require("../images/logo.png");
 
 interface HeaderTabsProps {
   user: { name: string; image: string };
-  tabs: string[];
+  tabs: { name: string; value: string };
 }
 
 
@@ -115,8 +115,8 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
   }
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
-      {tab}
+    <Tabs.Tab value={tab.value} key={tab.name}>
+      {tab.name}
     </Tabs.Tab>
   ));
 
@@ -155,7 +155,7 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
                 Liked posts
               </Menu.Item>
               <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                Saved posts
+                Predict
               </Menu.Item>
               <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
                 Your comments
@@ -177,6 +177,7 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
         <Tabs
           defaultValue="Home"
           variant="outline"
+          onTabChange={(value)=>{navigate("/"+value)}}
           classNames={{
             root: classes.tabs,
             tabsList: classes.tabsList,

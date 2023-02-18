@@ -1,6 +1,7 @@
 import { ReactSession } from 'react-client-session';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+
 import {
   createStyles,
   Container,
@@ -177,16 +178,17 @@ export function Nav({ user, tabs }: HeaderTabsProps) {
         <Tabs
           defaultValue="Home"
           variant="outline"
+          onTabChange={(value)=>{console.log(value)}}
           classNames={{
             root: classes.tabs,
             tabsList: classes.tabsList,
             tab: classes.tab,
           }}
-          onClick={()=> navigate("/login")}
         >
           <Tabs.List>{items}</Tabs.List>
         </Tabs>
       </Container>
+    
     </div>
   );
 }
