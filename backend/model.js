@@ -12,6 +12,9 @@ let property = new schema(
         p_desc:{
             type : String
         },
+        area_type:{
+            type : String
+        },
         p_type:{
             type : String
         },

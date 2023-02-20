@@ -2,6 +2,7 @@ import { Navbar } from "./navbar"
 
 import { createStyles, Select, TextInput } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
+import { Footer } from "./footer";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -84,7 +85,8 @@ export function Predict(){
             classNames={classes}
             required
           />
-    </div>          
+    </div>       
+      <Footer/>   
         </section>
     )
 }

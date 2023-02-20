@@ -4,13 +4,13 @@ import { ReactSession } from 'react-client-session';
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
-import { IconGasStation, IconGauge, IconManualGearbox, IconUsers } from '@tabler/icons';
+import { IconGasStation, IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
 
 const useStyles = createStyles((theme) => ({
     card: {
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
       width : '320px',
-      height : '395px'
+      height : '450px'
     },
   
     imageSection: {
@@ -46,15 +46,16 @@ const useStyles = createStyles((theme) => ({
   }));
 
   const mockdata = [
-    { label: '4 passengers', icon: IconUsers },
-    { label: '100 km/h in 4 seconds', icon: IconGauge },
-    { label: 'Automatic gearbox', icon: IconManualGearbox },
+    { label: '2 BHK', icon: IconHome2 },
+    { label: '4000 SQFT', icon: IconRuler },
+    { label: 'Bangalore', icon: IconMapPin },
     { label: 'Electric', icon: IconGasStation },
   ];  
 
 ReactSession.setStoreType("localStorage");
 
 function BDashboard(){
+  let image = require("../../images/card_home.jpg");
     const { classes } = useStyles();
     const features = mockdata.map((feature) => (
         <Center key={feature.label}>
@@ -73,17 +74,17 @@ function BDashboard(){
                 <div>
                     <Card withBorder radius="md" className={classes.card}>
                         <Card.Section className={classes.imageSection}>
-                            <Image src="https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
+                            <Image src={image} alt="Home"/>
                         </Card.Section>
 
                         <Group position="apart" mt="md">
                             <div>
-                            <Text weight={500}>Tesla Model S</Text>
+                            <Text weight={500}>Home 1</Text>
                             <Text size="xs" color="dimmed">
-                                Free recharge at any station
+                                Description
                             </Text>
                             </div>
-                            <Badge variant="outline">25% off</Badge>
+                            <Badge variant="outline">Residential</Badge>
                         </Group>
 
                         <Card.Section className={classes.section} mt="md">
@@ -108,7 +109,7 @@ function BDashboard(){
                             </div>
 
                             <Button radius="xl" style={{ flex: 1 }}>
-                                Rent now
+                                Assign
                             </Button>
                             </Group>
                         </Card.Section>
