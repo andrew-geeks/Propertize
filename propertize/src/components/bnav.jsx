@@ -110,6 +110,7 @@ export function Bnav({ user, tabs }: HeaderTabsProps) {
     e.preventDefault();
     ReactSession.setStoreType("localStorage");
     ReactSession.remove("id")
+    ReactSession.remove("actype")
     console.log("logged out!!")
     navigate("/")
   }

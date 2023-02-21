@@ -4,10 +4,12 @@ const schema = mongoose.Schema;
 let property = new schema(
     {
         owner_id : {
-            type : Number
+            type : String,
+            required : true
         },
         p_name:{
             type : String
+            
         },
         p_desc:{
             type : String

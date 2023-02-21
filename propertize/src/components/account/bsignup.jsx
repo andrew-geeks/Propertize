@@ -37,6 +37,7 @@ function BSignup(){
             })
             ReactSession.setStoreType("localStorage");
             ReactSession.set("id", u_id);
+            ReactSession.set("actype", "owner");
             //navigating after successfull signup
             navigate("/bdashboard")
             

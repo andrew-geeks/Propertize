@@ -49,7 +49,7 @@ const useStyles = createStyles((theme) => ({
     { label: '2 BHK', icon: IconHome2 },
     { label: '4000 SQFT', icon: IconRuler },
     { label: 'Bangalore', icon: IconMapPin },
-    { label: 'Electric', icon: IconGasStation },
+   
   ];  
 
 ReactSession.setStoreType("localStorage");
@@ -57,34 +57,41 @@ ReactSession.setStoreType("localStorage");
 function BDashboard(){
   let image = require("../../images/card_home.jpg");
     const { classes } = useStyles();
-    const features = mockdata.map((feature) => (
-        <Center key={feature.label}>
-          <feature.icon size={18} className={classes.icon} stroke={1.5} />
-          <Text size="xs">{feature.label}</Text>
-        </Center>
-      ));
+    var value = ReactSession.get("id");
+    useEffect( ()=>{
+      fetchItems(value);
+  },[value]);
+  const [items,setItems] = useState([]);
+  const fetchItems = async(id)=>{
+      const response=await fetch("http://localhost:4000/business/getProp?id="+id)
+      const data=await response.json()
+      setItems(data);
+      
+  }
 
     return(
         <section>
             <div>
             <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
             <div style={{"padding-left":"5%"}}>
-                <h4>Your Properties(0)</h4>
+                <h4>Your Properties({items.length})</h4>
                 <hr/>
                 <div>
-                    <Card withBorder radius="md" className={classes.card}>
+                    {
+                      items.map(item=>(
+                        <Card withBorder radius="md" className={classes.card}>
                         <Card.Section className={classes.imageSection}>
                             <Image src={image} alt="Home"/>
                         </Card.Section>
 
                         <Group position="apart" mt="md">
                             <div>
-                            <Text weight={500}>Home 1</Text>
+                            <Text weight={500}>{item.p_name}</Text>
                             <Text size="xs" color="dimmed">
-                                Description
+                                {item.p_desc}
                             </Text>
                             </div>
-                            <Badge variant="outline">Residential</Badge>
+                            <Badge variant="outline">{item.p_type}</Badge>
                         </Group>
 
                         <Card.Section className={classes.section} mt="md">
@@ -93,15 +100,25 @@ function BDashboard(){
                             </Text>
 
                             <Group spacing={8} mb={-8}>
-                            {features}
+                            <Center>
+                            <IconHome2 size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.bhk} BHK</Text>
+                            </Center>
+                            <Center>
+                            <IconRuler size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.p_size} SQFT</Text>
+                            </Center>
+                            <Center>
+                            <IconMapPin size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.location}</Text>
+                            </Center>
                             </Group>
                         </Card.Section>
-
                         <Card.Section className={classes.section}>
                             <Group spacing={30}>
                             <div>
                                 <Text size="xl" weight={700} sx={{ lineHeight: 1 }}>
-                                Rs. 00.00
+                                Rs. {item.rent_amt}.00
                                 </Text>
                                 <Text size="sm" color="dimmed" weight={500} sx={{ lineHeight: 1 }} mt={3}>
                                 per month
@@ -114,6 +131,9 @@ function BDashboard(){
                             </Group>
                         </Card.Section>
                     </Card>
+                      ))
+                    }
+                    
                 </div>
             </div>
             </div>

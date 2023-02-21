@@ -9,6 +9,7 @@ const PORT = 4000;
 //routes
 const homeRoute = express.Router();
 const accRoute = require('./routes/account.js');
+const bussRoute = require('./routes/business.js');
 
 
 app.use(cors());
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 //routeHandler
 app.use("/",homeRoute);
 app.use("/account",accRoute);
+app.use("/business",bussRoute);
 
 mongoose.connect('mongodb://localhost:27017/propertize',{useNewUrlParser: true});
 const connection = mongoose.connection;

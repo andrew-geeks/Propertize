@@ -26,8 +26,25 @@ export const PrivateRoute = ({ children}) => {
   const loggedIn = ReactSession.get("id");
       
   if (loggedIn !== undefined ) {
-    console.log("not undefined")
     return children
+  }
+  else{
+    return <Navigate to="/login" />
+  }
+    
+  
+}
+
+export const BusinessRoute = ({ children}) => {
+  ReactSession.setStoreType("localStorage");
+  const loggedIn = ReactSession.get("id");
+  const actype = ReactSession.get("actype");
+
+  if (loggedIn !== undefined && actype === "business" ) {
+    return children
+  }
+  else if(loggedIn !== undefined && actype === "tenant"){
+    return <Navigate to="/dashboard" />
   }
   else{
     return <Navigate to="/login" />
@@ -50,8 +67,8 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/predict' element={<Predict/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
-            <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
-            <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>
+            <Route path='/Bdashboard' element={<BusinessRoute><BDashboard/></BusinessRoute>}/>
+            <Route path='/addproperty' element={<BusinessRoute><Add/></BusinessRoute>}/>
           </Routes>
           
       </Router>

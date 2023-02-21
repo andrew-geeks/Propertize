@@ -40,6 +40,7 @@ export function Predict(){
             
             <br/><br/>
             <div className="divForm">
+            <form method="get">
             <Select
               style={{ marginTop: 20, zIndex: 2 }}
               data={['Kolkata', 'Chennai','Mumbai','Delhi','Bangalore']}
@@ -85,6 +86,10 @@ export function Predict(){
             classNames={classes}
             required
           />
+          <br/>
+          <button type="submit" class="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Predict</button>
+          
+          </form>
     </div>       
       <Footer/>   
         </section>

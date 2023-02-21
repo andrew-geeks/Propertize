@@ -1,5 +1,8 @@
-import { Bnav } from "../bnav"
-
+import { Bnav } from "../bnav";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { ReactSession } from 'react-client-session';
 import { createStyles, Select, TextInput } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { Footer } from "../footer";
@@ -27,24 +30,45 @@ const useStyles = createStyles((theme) => ({
 
 export function Add(){
     const { classes } = useStyles();
+    const navigate = useNavigate();
+    ReactSession.setStoreType("localStorage");
+    var id = ReactSession.get("id");
+    const formData = {ownerid:id,p_name:"",p_desc:"",area_type:"",p_type:"",p_size:"",bhk:"",location:"",rent_amt:"",p_status:"Not Assigned"}
+    const [formValues,setFormValues] = useState(formData);
+
+    const formSubmit = (e) =>{
+      e.preventDefault();
+      console.log(formValues)
+      axios.post("http://localhost:4000/business/add/",formValues)
+      .then(res =>{
+        console.log(res.data);
+        //after successfull adding
+        navigate("/bdashboard")
+      })
+      .catch(error =>{
+        console.log("actionError",error);
+      })
+    }
+
 
     return(
         <section>
             <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
             <div style={{"text-align":"center"}}>
-            <h2>Add your property!</h2>
-            <em>Add and manage then with ease!</em>
+            <h2>Add your property🏘️!</h2>
+            <em>Add and manage them with ease!</em>
             </div>
             
             <br/><br/>
-            <div className="divForm">
-          <TextInput label="Enter location" placeholder="Property Location"  classNames={classes} required type="text"/>
+          <div className="divForm">
+          <form method="post">
+          <TextInput label="Enter location" placeholder="Property Location"  classNames={classes} onChange={(e)=>setFormValues({...formValues,location:e.target.value})} required type="text"/>
           <br/>
-          <TextInput label="Enter Property Name" placeholder="Just a name.."  classNames={classes} required type="text"/>
+          <TextInput label="Enter Property Name" placeholder="Just a name.."  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_name:e.target.value})} required type="text"/>
           <br/>
-          <TextInput label="BHK" placeholder="0,1,2,3 or more..."  classNames={classes} required type="number"/>
+          <TextInput label="BHK" placeholder="0,1,2,3 or more..."  classNames={classes} onChange={(e)=>setFormValues({...formValues,bhk:e.target.value})} required type="number"/>
           <br/>
-          <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} required type="number"/>
+          <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_size:e.target.value})} required type="number"/>
           <br/>
           <Select
             style={{ marginTop: 20, zIndex: 2 }}
@@ -52,10 +76,12 @@ export function Add(){
             placeholder="Pick one"
             label="Select area type"
             classNames={classes}
+            onSelect={(e)=>setFormValues({...formValues,area_type:e.target.value})}
+            
             required
           />
           <br/>
-          <TextInput label="Enter property description" placeholder="max 30 characters"  classNames={classes} required type="text" maxLength="30"/>
+          <TextInput label="Enter property description" placeholder="max 30 characters"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_desc:e.target.value})} required type="text" maxLength="30"/>
           <br/>
           <Select
             style={{ marginTop: 20, zIndex: 2 }}
@@ -63,28 +89,14 @@ export function Add(){
             placeholder="Pick one"
             label="Select property type"
             classNames={classes}
+            onSelect={(e)=>setFormValues({...formValues,p_type:e.target.value})}
             required
           />
           <br/>
-          <TextInput label="Rent Amount" placeholder="In rupees"  classNames={classes} required type="number"/>
+          <TextInput label="Rent Amount" placeholder="In rupees"  classNames={classes} onChange={(e)=>setFormValues({...formValues,rent_amt:e.target.value})} required type="number"/>
           <br/>
-          <Select
-            style={{ marginTop: 20, zIndex: 2 }}
-            data={['Unfurnished', 'Semi-Furnished','Furnished']}
-            placeholder="Pick one"
-            label="Select Furnishing Status"
-            classNames={classes}
-            required
-          />
-          <br/>
-          <Select
-            style={{ marginTop: 20, zIndex: 2 }}
-            data={['Bachelors', 'Family','Bachelors/Family']}
-            placeholder="Pick one"
-            label="Prefered Tenants"
-            classNames={classes}
-            required
-          />
+          <button onClick={formSubmit} type="submit" class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Add</button>
+          </form>
           </div>  
           <Footer/>        
         </section>
