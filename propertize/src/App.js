@@ -67,8 +67,8 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/predict' element={<Predict/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
-            <Route path='/Bdashboard' element={<BusinessRoute><BDashboard/></BusinessRoute>}/>
-            <Route path='/addproperty' element={<BusinessRoute><Add/></BusinessRoute>}/>
+            <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
+            <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>
           </Routes>
           
       </Router>
