@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot
 import seaborn as sns
+import pickle
 
-df = pd.read_csv('datasHouse_Rent_Dataset.csv')
+df = pd.read_csv('data.csv')
 
 df["House_floor"]=df["Floor"].str.split(" ").str[0]
 df["Total_floors"]=df["Floor"].str.split(" ").str[-1]
@@ -28,11 +28,16 @@ from sklearn.ensemble import RandomForestRegressor
 regressor = RandomForestRegressor(n_estimators=17,random_state=0)
 regressor.fit(x_train,y_train)
 
+pickle.dump(regressor, open('model.pkl','wb'))
+model = pickle.load(open('model.pkl','rb'))
+
 newData = pd.get_dummies(pd.DataFrame({'BHK':[1],'Size':[1000],'Area Type':['Super Area'],'City':['Kolkata'],'Furnishing Status':['Furnished'],'Tenant Preferred':['Family'],'Bathroom':[2],'House_floor':[2],'Total_floors':[5]}))
 dummies_frame = pd.get_dummies(x,columns=["Area Type","City","Furnishing Status","Tenant Preferred"])
 newData = newData.reindex(columns = dummies_frame.columns, fill_value=0)
 
 pred = regressor.predict(newData)
+pred = regressor.predict(newData)
+print((pred[0]))
 
 
 
