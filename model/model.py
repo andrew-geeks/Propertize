@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 import pickle
 
-df = pd.read_csv('data.csv')
+df = pd.read_csv("data/data.csv")
 
 df["House_floor"]=df["Floor"].str.split(" ").str[0]
 df["Total_floors"]=df["Floor"].str.split(" ").str[-1]
