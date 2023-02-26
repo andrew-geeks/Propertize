@@ -86,7 +86,7 @@ var id="";
         </Title>
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Do not have an account yet?{' '}
-          <Anchor href="#" size="sm" onClick={(event) => event.preventDefault()}>
+          <Anchor href="/signup" size="sm">
             Create account
           </Anchor>
         </Text>
@@ -96,7 +96,7 @@ var id="";
           <PasswordInput label="Password" placeholder="" required mt="md" value={formValues.password} onChange={(e)=> setFormValues({...formValues,password : e.target.value})}/>
           <Group position="apart" mt="lg">
             <Checkbox label="Remember me" sx={{ lineHeight: 1 }} />
-            <Anchor onClick={(event) => event.preventDefault()} href="#" size="sm">
+            <Anchor href="/forgotpassword" size="sm">
               Forgot password?
             </Anchor>
           </Group>

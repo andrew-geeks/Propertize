@@ -15,6 +15,7 @@ import BSignup from './components/account/bsignup'; // business signup
 import BDashboard from './components/dashboard/bdashboard'; //business dashboard[owner]
 import { Add } from './components/business/add'; //business add
 import { Predict } from './components/predict';
+import { ForgotPassword } from './components/account/forgotPassword';
 
 
 
@@ -66,6 +67,7 @@ function App() {
             <Route path='/bsignup' element={<BSignup/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/predict' element={<Predict/>} />
+            <Route path='/forgotpassword' element={<ForgotPassword/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
             <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>

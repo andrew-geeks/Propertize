@@ -1,10 +1,16 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const router = express();
 const saltRounds = 11;
 const {Account} = require("../model.js")
+
+function welcomeMail(mail){
+    
+}
 
 
 router.get("/getId",(req,res)=>{
@@ -41,9 +47,18 @@ router.post("/bsignup", (req,res)=>{
         newAcc.save((err)=>{
             if(err){
                 res.status(400).json({ err: 'That email is already in use!' });
+                
             }
             else{
+                try{
+                    welcomeMail(req.body.email);
+                }
+                catch{
+                    console.log("");
+                }
+                
                 res.status(200).json({message:"success!"})
+                
             }
         })
     });
