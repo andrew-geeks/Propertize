@@ -1,16 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const mail = require('../Mail.js');
+var crypto = require('crypto');
 
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const dotenv = require('dotenv');
+dotenv.config();
 
 const router = express();
 const saltRounds = 11;
 const {Account} = require("../model.js")
-
-function welcomeMail(mail){
-    
-}
 
 
 router.get("/getId",(req,res)=>{
@@ -41,7 +39,8 @@ router.post("/bsignup", (req,res)=>{
             name : req.body.name,
             email : req.body.email,
             password : hash,
-            actype : "owner"
+            actype : "owner",
+            rtoken: "",
         });
 
         newAcc.save((err)=>{
@@ -51,10 +50,10 @@ router.post("/bsignup", (req,res)=>{
             }
             else{
                 try{
-                    welcomeMail(req.body.email);
+                    mail.WelcomeBusiness(req.body.email);
                 }
                 catch{
-                    console.log("");
+                    
                 }
                 
                 res.status(200).json({message:"success!"})
@@ -74,7 +73,8 @@ router.post("/signup", (req,res)=>{
             name : req.body.name,
             email : req.body.email,
             password : hash,
-            actype : "tenant"
+            actype : "tenant",
+            rtoken: "",
         });
 
         newAcc.save((err)=>{
@@ -82,8 +82,13 @@ router.post("/signup", (req,res)=>{
                 res.status(400).json({ err: 'That email is already in use!' });
             }
             else{
+                try{
+                    mail.Welcome(req.body.email)
+                }
+                catch{
+
+                }
                 res.status(200).json({message:"success!"})
-                
             }
         })
     });
@@ -104,6 +109,30 @@ router.post("/login",(req,res)=>{
         }
         if(err){
             res.send(err)
+        }
+    })
+})
+
+router.post("/forgotpassword",(req,res)=>{
+    Account.findOne({email:req.body.email},(err,found)=>{
+        if(found){
+            res.status(200).json("mail sent")
+            //create token
+            const token = crypto.randomBytes(20).toString('hex');
+            mail.resetPassword(req.body.email,token) //sending mail with link-token
+            //saving token in db
+            Account.updateOne({email:req.body.email},{$set:{rtoken:token}},(err,res)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("success");
+                }
+            });
+            
+        }
+        else{
+            res.status(400).json({ err: 'invalid email!' });
         }
     })
 })

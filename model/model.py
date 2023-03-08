@@ -36,7 +36,6 @@ dummies_frame = pd.get_dummies(x,columns=["Area Type","City","Furnishing Status"
 newData = newData.reindex(columns = dummies_frame.columns, fill_value=0)
 
 pred = regressor.predict(newData)
-pred = regressor.predict(newData)
 print((pred[0]))
 
 

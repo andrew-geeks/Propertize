@@ -56,7 +56,11 @@ let account = new schema(
         actype : {
             type : String,
             required : true
-        }
+        },
+        rtoken:{
+            type : String
+        },
+        
     }
 )
 

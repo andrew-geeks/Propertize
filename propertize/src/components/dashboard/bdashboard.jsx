@@ -72,13 +72,14 @@ function BDashboard(){
     return(
         <section>
             <div>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
             <div style={{"padding-left":"5%"}}>
                 <h4>Your Properties({items.length})</h4>
                 <hr/>
                 <div>
                     {
                       items.map(item=>(
+                        <div className="col">
                         <Card withBorder radius="md" className={classes.card}>
                         <Card.Section className={classes.imageSection}>
                             <Image src={image} alt="Home"/>
@@ -93,7 +94,7 @@ function BDashboard(){
                             </div>
                             <Badge variant="outline">{item.p_type}</Badge>
                         </Group>
-
+                        
                         <Card.Section className={classes.section} mt="md">
                             <Text size="sm" color="dimmed" className={classes.label}>
                             Basic details
@@ -131,13 +132,14 @@ function BDashboard(){
                             </Group>
                         </Card.Section>
                     </Card>
+                    </div>
                       ))
                     }
                     
                 </div>
             </div>
             </div>
-            <Footer/>
+           
         </section>
         
     )

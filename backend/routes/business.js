@@ -1,7 +1,9 @@
 const express = require('express');
+const mail = require('../Mail.js');
 
 const router = express();
 const {Property} = require("../model.js")
+
 
 
 router.get("/getProp",async (req,res)=>{
@@ -29,6 +31,7 @@ router.post("/add",(req,res)=>{
             res.status(400).json({ err: 'Error in insertion!' });
         }
         else{
+            //mail.addProp() include mail
             res.status(200).json({message:"success!"})
         }
     })

@@ -39,22 +39,26 @@ export function Predict(){
             </div>
             
             <br/><br/>
-            <div className="divForm">
+            <div className="">
             <form method="get">
+            <div className="col">
+              <Select
+                style={{ marginTop: 20, zIndex: 2 }}
+                data={['Kolkata', 'Chennai','Mumbai','Delhi','Bangalore']}
+                placeholder="Pick one"
+                label="Select your city"
+                classNames={classes}
+                required
+              />
+            </div>
+            <div className="col">
+            <TextInput label="BHK" placeholder="1,2,3 or more..."  classNames={classes} required type="number"/>             
+            </div>
+            <div className="col">
+            <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} required type="number"/>
+            </div>
+            <div className="col">
             <Select
-              style={{ marginTop: 20, zIndex: 2 }}
-              data={['Kolkata', 'Chennai','Mumbai','Delhi','Bangalore']}
-              placeholder="Pick one"
-              label="Select your city"
-              classNames={classes}
-              required
-            />
-          <br/>
-          <TextInput label="BHK" placeholder="1,2,3 or more..."  classNames={classes} required type="number"/>
-          <br/>
-          <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} required type="number"/>
-          <br/>
-          <Select
             style={{ marginTop: 20, zIndex: 2 }}
             data={['Carpet Area', 'Super Area']}
             placeholder="Pick one"
@@ -62,14 +66,21 @@ export function Predict(){
             classNames={classes}
             required
           />
-          <br/>
-          <TextInput label="Total Bathrooms" placeholder="1 or more"  classNames={classes} required type="number"/>
-          <br/>
-          <TextInput label="Apartment Floor" placeholder="0,1,2,3"  classNames={classes} required type="number"/>
-          <br/>
-          <TextInput label="Total Floors" placeholder="1,2,3"  classNames={classes} required type="number"/>
-          <br/>
-          <Select
+            </div>
+            <div className="col">
+            <TextInput label="Total Bathrooms" placeholder="1 or more"  classNames={classes} required type="number"/>
+            </div>
+            <br/>
+            <div className="col">
+            <TextInput label="Apartment Floor" placeholder="0,1,2,3"  classNames={classes} required type="number"/>
+            </div>
+            <br/>
+            <div className="col">
+            <TextInput label="Total Floors" placeholder="1,2,3"  classNames={classes} required type="number"/>
+            <br/>
+            </div>
+            <div className="col">
+            <Select
             style={{ marginTop: 20, zIndex: 2 }}
             data={['Unfurnished', 'Semi-Furnished','Furnished']}
             placeholder="Pick one"
@@ -77,7 +88,9 @@ export function Predict(){
             classNames={classes}
             required
           />
-          <br/>
+            </div>
+            <br/>
+          <div className="col">
           <Select
             style={{ marginTop: 20, zIndex: 2 }}
             data={['Bachelors', 'Family','Bachelors/Family']}
@@ -87,7 +100,12 @@ export function Predict(){
             required
           />
           <br/>
+          </div>
+          <br/>
+          <div className="col">
           <button type="submit" class="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Predict</button>
+
+          </div>
           
           </form>
     </div>       

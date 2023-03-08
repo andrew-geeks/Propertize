@@ -34,7 +34,7 @@ export function Footer() {
   const { classes } = useStyles();
 
   return (
-    <div className={classes.footer} style={{'background-color':'#D3D3D3'}}>
+    <div className={classes.footer} id="footer" style={{'background-color':'#D3D3D3'}}>
       <Container className={classes.inner}>
       <a href="/" class="flex items-center logo-text">
           <img src={image} class="h-6 mr-1 sm:h-9" alt="Logo" width="70"/>

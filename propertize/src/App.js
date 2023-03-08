@@ -16,6 +16,7 @@ import BDashboard from './components/dashboard/bdashboard'; //business dashboard
 import { Add } from './components/business/add'; //business add
 import { Predict } from './components/predict';
 import { ForgotPassword } from './components/account/forgotPassword';
+import { ResetPassword } from './components/account/resetPassword';
 
 
 
@@ -68,6 +69,7 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/predict' element={<Predict/>} />
             <Route path='/forgotpassword' element={<ForgotPassword/>} />
+            <Route path='/reset' element={<ResetPassword/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
             <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>

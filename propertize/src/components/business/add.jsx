@@ -53,51 +53,62 @@ export function Add(){
 
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
             <div style={{"text-align":"center"}}>
             <h2>Add your property🏘️!</h2>
             <em>Add and manage them with ease!</em>
             </div>
             
             <br/><br/>
-          <div className="divForm">
-          <form method="post">
-          <TextInput label="Enter location" placeholder="Property Location"  classNames={classes} onChange={(e)=>setFormValues({...formValues,location:e.target.value})} required type="text"/>
-          <br/>
-          <TextInput label="Enter Property Name" placeholder="Just a name.."  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_name:e.target.value})} required type="text"/>
-          <br/>
-          <TextInput label="BHK" placeholder="0,1,2,3 or more..."  classNames={classes} onChange={(e)=>setFormValues({...formValues,bhk:e.target.value})} required type="number"/>
-          <br/>
-          <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_size:e.target.value})} required type="number"/>
-          <br/>
-          <Select
-            style={{ marginTop: 20, zIndex: 2 }}
-            data={['Carpet Area', 'Super Area']}
-            placeholder="Pick one"
-            label="Select area type"
-            classNames={classes}
-            onSelect={(e)=>setFormValues({...formValues,area_type:e.target.value})}
-            
-            required
-          />
-          <br/>
-          <TextInput label="Enter property description" placeholder="max 30 characters"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_desc:e.target.value})} required type="text" maxLength="30"/>
-          <br/>
-          <Select
-            style={{ marginTop: 20, zIndex: 2 }}
-            data={['Residential', 'Commercial']}
-            placeholder="Pick one"
-            label="Select property type"
-            classNames={classes}
-            onSelect={(e)=>setFormValues({...formValues,p_type:e.target.value})}
-            required
-          />
-          <br/>
-          <TextInput label="Rent Amount" placeholder="In rupees"  classNames={classes} onChange={(e)=>setFormValues({...formValues,rent_amt:e.target.value})} required type="number"/>
-          <br/>
-          <button onClick={formSubmit} type="submit" class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Add</button>
+          <div className="divform">
+            <form method="post">
+            <div className="col">
+            <TextInput label="Enter location" placeholder="Property Location"  classNames={classes} onChange={(e)=>setFormValues({...formValues,location:e.target.value})} required type="text"/>
+            </div>
+            <div className="col">
+            <TextInput label="Enter Property Name" placeholder="Just a name.."  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_name:e.target.value})} required type="text"/>
+            </div>
+            <br></br>
+            <div className="col">
+              <TextInput label="BHK" placeholder="0,1,2,3 or more..."  classNames={classes} onChange={(e)=>setFormValues({...formValues,bhk:e.target.value})} required type="number"/>
+            </div>
+            <div className="col">
+              <TextInput label="Enter Size" placeholder="In SQFT"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_size:e.target.value})} required type="number"/>
+            </div>
+            <div className="col">
+              <Select
+                style={{ marginTop: 20, zIndex: 2 }}
+                data={['Carpet Area', 'Super Area']}
+                placeholder="Pick one"
+                label="Select area type"
+                classNames={classes}
+                onSelect={(e)=>setFormValues({...formValues,area_type:e.target.value})}
+                
+                required
+              />
+            </div>
+            <div className="col">
+            <TextInput label="Enter property description" placeholder="max 30 characters"  classNames={classes} onChange={(e)=>setFormValues({...formValues,p_desc:e.target.value})} required type="text" maxLength="30"/>
+            </div>
+            <div className="col">
+            <Select
+              style={{ marginTop: 20, zIndex: 2 }}
+              data={['Residential', 'Commercial']}
+              placeholder="Pick one"
+              label="Select property type"
+              classNames={classes}
+              onSelect={(e)=>setFormValues({...formValues,p_type:e.target.value})}
+              required
+            />
+            </div>
+            <div className="col">
+            <TextInput label="Rent Amount" placeholder="In rupees"  classNames={classes} onChange={(e)=>setFormValues({...formValues,rent_amt:e.target.value})} required type="number"/>
+            </div>
+            <div className="col">
+              <button onClick={formSubmit} type="submit" class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Add</button>
+            </div>
           </form>
-          </div>  
+          </div>
           <Footer/>        
         </section>
 
