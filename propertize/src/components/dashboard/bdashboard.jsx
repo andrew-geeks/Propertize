@@ -45,12 +45,6 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-  const mockdata = [
-    { label: '2 BHK', icon: IconHome2 },
-    { label: '4000 SQFT', icon: IconRuler },
-    { label: 'Bangalore', icon: IconMapPin },
-   
-  ];  
 
 ReactSession.setStoreType("localStorage");
 

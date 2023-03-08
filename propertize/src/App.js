@@ -17,6 +17,8 @@ import { Add } from './components/business/add'; //business add
 import { Predict } from './components/predict';
 import { ForgotPassword } from './components/account/forgotPassword';
 import { ResetPassword } from './components/account/resetPassword';
+import Manage from './components/business/manage';
+import ManageProp from './components/business/manageprop';
 
 
 
@@ -33,8 +35,7 @@ export const PrivateRoute = ({ children}) => {
   else{
     return <Navigate to="/login" />
   }
-    
-  
+
 }
 
 export const BusinessRoute = ({ children}) => {
@@ -42,14 +43,15 @@ export const BusinessRoute = ({ children}) => {
   const loggedIn = ReactSession.get("id");
   const actype = ReactSession.get("actype");
 
-  if (loggedIn !== undefined && actype === "business" ) {
-    return children
+  if(loggedIn === undefined){
+    return <Navigate to="/blogin"/>
   }
-  else if(loggedIn !== undefined && actype === "tenant"){
-    return <Navigate to="/dashboard" />
+  else if(actype === "owner"){
+    return children;
   }
   else{
-    return <Navigate to="/login" />
+    console.log("actype: "+actype)
+    return <Navigate to="/"/>
   }
     
   
@@ -73,6 +75,8 @@ function App() {
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
             <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>
+            <Route path='/manage' element={<BusinessRoute><Manage/></BusinessRoute>}/>
+            <Route path='/manage/:propid' element={<BusinessRoute><ManageProp/></BusinessRoute>}/>
           </Routes>
           
       </Router>
