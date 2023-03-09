@@ -19,7 +19,7 @@ import { ForgotPassword } from './components/account/forgotPassword';
 import { ResetPassword } from './components/account/resetPassword';
 import Manage from './components/business/manage';
 import ManageProp from './components/business/manageprop';
-
+import None from './components/404';
 
 
 
@@ -77,6 +77,7 @@ function App() {
             <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>
             <Route path='/manage' element={<BusinessRoute><Manage/></BusinessRoute>}/>
             <Route path='/manage/:propid' element={<BusinessRoute><ManageProp/></BusinessRoute>}/>
+            <Route path='/none' element={<None/>}/>
           </Routes>
           
       </Router>

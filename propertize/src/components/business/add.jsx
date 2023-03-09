@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ReactSession } from 'react-client-session';
 import { createStyles, Select, TextInput } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
+
 import { Footer } from "../footer";
 
 const useStyles = createStyles((theme) => ({

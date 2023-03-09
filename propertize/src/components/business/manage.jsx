@@ -2,9 +2,9 @@ import { Footer } from "../footer";
 import { Bnav } from "../bnav";
 import { ReactSession } from 'react-client-session';
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
 import { IconGasStation, IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -47,6 +47,7 @@ const useStyles = createStyles((theme) => ({
 
 
 function Manage(){
+    const navigate = useNavigate();
     const { classes } = useStyles();
     let image = require("../../images/card_home.jpg");
     ReactSession.setStoreType("localStorage");
@@ -119,7 +120,7 @@ function Manage(){
                                 </Text>
                             </div>
 
-                            <Button radius="xl" style={{ flex: 1 }}>
+                            <Button radius="xl" style={{ flex: 1 }} variant="outline" onClick={()=> navigate("/manage/"+item._id)}>
                                 Manage
                             </Button>
                             </Group>

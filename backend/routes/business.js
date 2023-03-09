@@ -12,6 +12,12 @@ router.get("/getProp",async (req,res)=>{
     res.end(JSON.stringify(propData));
 })
 
+router.get("/getSProp",async (req,res)=>{
+    var pid = req.query.pid;
+    const propData = await Property.find({_id:pid});
+    res.end(JSON.stringify(propData));
+})
+
 router.post("/add",(req,res)=>{
     const addProp = new Property({
         owner_id : req.body.ownerid,
@@ -36,5 +42,36 @@ router.post("/add",(req,res)=>{
         }
     })
 })
+
+router.post("/updateProp",(req,resp)=>{
+    Property.updateOne({_id:req.body.pid},{$set:{
+        p_name:req.body.p_name,
+        p_desc:req.body.p_desc,
+        p_size:req.body.p_size,
+        bhk:req.body.bhk,
+        location:req.body.location,
+        rent_amt:req.body.rent_amt
+    }},(err,res)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log("property updated");
+            resp.status(200).json("property_updated")
+        }
+    })
+})
+
+router.get("/delProp",(req,resp)=>{
+    Property.deleteOne({_id:req.query.pid},(err,res)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            resp.status(200).json("property_deleted")
+        }
+    })
+})
+
 
 module.exports = router;
