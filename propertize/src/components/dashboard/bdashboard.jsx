@@ -120,7 +120,9 @@ function BDashboard(){
                                 </Text>
                             </div>
 
-                            <Button radius="xl" style={{ flex: 1 }} onClick={()=> navigate("/assign/"+item._id)}>
+                            <Button radius="xl" variant="outline" style={{ flex: 1 }} disabled={
+                              item.p_status === "Assigned"?true:false} 
+                              onClick={()=> navigate("/assign/"+item._id)}>
                                 Assign
                             </Button>
                             </Group>

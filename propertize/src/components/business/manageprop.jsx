@@ -56,7 +56,7 @@ function ManageProp(){
     },[propid]);
     const [items,setItems] = useState([]);
     const fetchItems = async(id)=>{
-        const response=await fetch("http://localhost:4000/business/getSProp?pid="+id)
+        const response=await fetch("http://localhost:4000/property/getSProp?pid="+id)
         const data=await response.json()
         setItems(data);
     }

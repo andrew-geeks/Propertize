@@ -34,12 +34,13 @@ const useStyles = createStyles((theme) => ({
 
 function Assign(){
     const navigate = useNavigate();
+    ReactSession.setStoreType("localStorage");
     var id = ReactSession.get("id");
     var uid="";
     var actype="";
     const { classes } = useStyles();
     const {propid}  = useParams();
-    const formData = {p_id:propid,u_id:"",o_id:id,tenure:"",email:""}
+    const formData = {p_id:propid,u_id:"",o_id:id,tenure:"",email:"",assign:""}
     useEffect( ()=>{
         fetchItems(propid);
     },[propid]);
@@ -50,7 +51,6 @@ function Assign(){
     const fetchItems = async(id)=>{
         const response=await fetch("http://localhost:4000/business/getSProp?pid="+id)
         const data=await response.json()
-        
         setItems(data);
     }
     var assigned="";
@@ -58,14 +58,34 @@ function Assign(){
         e.preventDefault();
         //get tenant id and actype using mail
         axios.get("http://localhost:4000/account/getId?mail="+formValues.email)
-        .then(res=>{
-            uid = res.data.id;
+        .then(async res=>{
             actype = res.data.actype;
+            uid = res.data.id;
             //if tenant
+            
             if(actype === "tenant"){
-                
-
+                formValues.u_id =uid; //setting userid
+                console.log("uid:"+res.data.id)
+                await axios.post("http://localhost:4000/property/assign",formValues)
+                .then(resp=>{
+                    //sucessful insertion
+                    //updating property to assigned status
+                    axios.post("http://localhost:4000/property/updateAssign?pid="+formValues.p_id)
+                    .then(
+                        respo=>{
+                            //notification recommended!
+                            navigate("/bdashboard")
+                        }
+                    )
+                    
+                })  
+                .catch(error=>{
+                    console.log("Error in inserting")
+                    console.log(formValues)
+                    setError("Could not assign⚠️!");
+                })
             }
+    
             else{
                 setError("Enter a tenant MailId⚠️!");
             }
@@ -76,17 +96,11 @@ function Assign(){
         })
     }
 
-
-
-
-
-
-
     items.map(item=>(
         assigned = item.p_status
     ))
-    
-    if(assigned === ""){
+    formData.assign = assigned
+    if(formData.assign === ""){
         return(
             <None/>
         )
@@ -114,21 +128,21 @@ function Assign(){
                         <form style={{"padding-left":"5%"}}>
                         <div className="col">  
                             <p>Enter Tenant Email</p>
-                             <TextInput label="Enter email"  classNames={classes} required type="email"/>
+                             <TextInput label="Enter email"  classNames={classes} onChange={(e)=>setFormValues({...formValues,email:e.target.value})} required type="email"/>
                         </div>
                         <div className="col">  
                             <p>Property Id:</p>
-                             <TextInput defaultValue={propid} disabled = {true}  classNames={classes} required type="text"/>
+                             <TextInput defaultValue={formValues.p_id} disabled = {true}  classNames={classes} required type="text"/>
                         </div>
                         <div className="col">  
                             <p>Assign Status</p>
-                             <TextInput label="Assigned or Not" defaultValue={assigned} disabled = {true}  classNames={classes} required type="text"/>
+                             <TextInput label="Assigned or Not" defaultValue={formData.assign} disabled = {true}  classNames={classes} required type="text"/>
                         </div>
                         <div className="col">  
                             <p>Enter Agreement Tenure</p>
-                             <TextInput label="No. of years this property is rented/leased"  classNames={classes} required type="number"/>
+                             <TextInput label="No. of years this property is rented/leased" onChange={(e)=>setFormValues({...formValues,tenure:e.target.value})} classNames={classes} required type="number"/>
                         </div>
-                        <button type="submit" class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Assign</button>
+                        <button type="submit" onClick={formsubmit} class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Assign</button>
                         </form>
                         
                 

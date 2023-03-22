@@ -6,17 +6,7 @@ const {Property} = require("../model.js")
 
 
 
-router.get("/getProp",async (req,res)=>{
-    var id = req.query.id;
-    const propData = await Property.find({owner_id:id});
-    res.end(JSON.stringify(propData));
-})
 
-router.get("/getSProp",async (req,res)=>{
-    var pid = req.query.pid;
-    const propData = await Property.find({_id:pid});
-    res.end(JSON.stringify(propData));
-})
 
 router.post("/add",(req,res)=>{
     const addProp = new Property({
