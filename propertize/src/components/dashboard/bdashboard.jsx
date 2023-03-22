@@ -2,7 +2,7 @@ import { Footer } from "../footer";
 import { Bnav } from "../bnav";
 import { ReactSession } from 'react-client-session';
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
 import { IconGasStation, IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
 
@@ -49,6 +49,7 @@ const useStyles = createStyles((theme) => ({
 ReactSession.setStoreType("localStorage");
 
 function BDashboard(){
+  const navigate = useNavigate();
   let image = require("../../images/card_home.jpg");
     const { classes } = useStyles();
     var value = ReactSession.get("id");
@@ -93,7 +94,6 @@ function BDashboard(){
                             <Text size="sm" color="dimmed" className={classes.label}>
                             Basic details
                             </Text>
-
                             <Group spacing={8} mb={-8}>
                             <Center>
                             <IconHome2 size={18} className={classes.icon} stroke={1.5} />
@@ -120,7 +120,7 @@ function BDashboard(){
                                 </Text>
                             </div>
 
-                            <Button radius="xl" style={{ flex: 1 }}>
+                            <Button radius="xl" style={{ flex: 1 }} onClick={()=> navigate("/assign/"+item._id)}>
                                 Assign
                             </Button>
                             </Group>

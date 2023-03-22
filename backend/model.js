@@ -64,7 +64,34 @@ let account = new schema(
     }
 )
 
+let assign = new schema(
+    {
+        p_id:{
+            type: String,
+            required: true
+        },
+        u_id:{
+            type: String,
+            required: true
+        },
+        o_id:{
+            type: String,
+            required: true
+        },
+        start_date:{
+            type: Date,
+            required: true
+        },
+        end_date:{
+            type: Date,
+            required: true
+        }
+
+    }
+)
+
 const Property = mongoose.model('property',property);
 const Account = mongoose.model('account',account);
+const Assign = mongoose.model('assign',assign);
 
-module.exports = {Property,Account};
+module.exports = {Property,Account,Assign};
