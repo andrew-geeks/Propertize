@@ -16,16 +16,10 @@ router.get("/getSProp",async (req,res)=>{
     res.end(JSON.stringify(propData));
 })
 
-//get assigned property id using tenant-id
-router.get("/getApropId",async (req,res)=>{
-    var u_id = req.query.id;
-    const propData = await Assign.find({u_id:u_id});
-    res.end(JSON.stringify(propData));
-})
-
+//get assigned properties
 router.get("/getAProp",async (req,res)=>{
     var id = req.query.p_id;
-    const propData = await Property.findOne({_id:id});
+    const propData = await Property.findOne({tenant_id:id});
     res.end(JSON.stringify(propData));
 })
 

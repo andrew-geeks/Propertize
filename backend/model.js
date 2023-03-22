@@ -7,6 +7,9 @@ let property = new schema(
             type : String,
             required : true
         },
+        tenant_id : {
+            type : String,
+        },
         p_name:{
             type : String
             

@@ -13,23 +13,13 @@ function Dashboard(){
         fetchItems(loggedIn);
     },[loggedIn]);
 
-    const [pid,setPid] = useState([]); //storing all  assigned property IDS
     const [prop,setProp] = useState([]); //storing all assigned property data
     const fetchItems = async(id)=>{
-        const response=await fetch("http://localhost:4000/property/getApropId?id="+loggedIn)
+        const response=await fetch("http://localhost:4000/property/getAprop?id="+loggedIn)
         const data=await response.json()
-        setPid(data);
+        setProp(data);
     }
-    pid.map(id=>(
-        //iteratively store p-data
-        axios.get("http://localhost:4000/property/getSProp?id="+id._id)
-        .then(res=>{
-            setProp(res.data)
-        })
-        .catch(error=>{
-            console.log(error);
-        })
-    ));
+   
     if(loggedIn === undefined){
         return <Navigate replace to="/login" />;
     }
