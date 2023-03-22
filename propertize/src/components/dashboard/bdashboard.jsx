@@ -58,7 +58,7 @@ function BDashboard(){
   },[value]);
   const [items,setItems] = useState([]);
   const fetchItems = async(id)=>{
-      const response=await fetch("http://localhost:4000/business/getProp?id="+id)
+      const response=await fetch("http://localhost:4000/property/getProp?id="+id)
       const data=await response.json()
       setItems(data);
       

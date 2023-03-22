@@ -49,7 +49,7 @@ function Assign(){
     const [formValues,setFormValues] = useState(formData);
 
     const fetchItems = async(id)=>{
-        const response=await fetch("http://localhost:4000/business/getSProp?pid="+id)
+        const response=await fetch("http://localhost:4000/property/getSProp?pid="+id)
         const data=await response.json()
         setItems(data);
     }
@@ -62,7 +62,6 @@ function Assign(){
             actype = res.data.actype;
             uid = res.data.id;
             //if tenant
-            
             if(actype === "tenant"){
                 formValues.u_id =uid; //setting userid
                 console.log("uid:"+res.data.id)
@@ -72,9 +71,14 @@ function Assign(){
                     //updating property to assigned status
                     axios.post("http://localhost:4000/property/updateAssign?pid="+formValues.p_id)
                     .then(
-                        respo=>{
-                            //notification recommended!
-                            navigate("/bdashboard")
+                        async respo=>{
+                            //updating property with u_id
+                            await axios.post("http://localhost:4000/property/updateTID?pid="+formValues.p_id+"&tid="+formValues.u_id)
+                            .then(respon=>{
+                                //notification recommended!
+                                navigate("/bdashboard")
+                            })
+                            
                         }
                     )
                     

@@ -16,10 +16,9 @@ router.get("/getSProp",async (req,res)=>{
     res.end(JSON.stringify(propData));
 })
 
-//get assigned properties
+//get assigned properties based on tenant_id
 router.get("/getAProp",async (req,res)=>{
-    var id = req.query.p_id;
-    const propData = await Property.findOne({tenant_id:id});
+    const propData = await Property.find({tenant_id:req.query.tid});
     res.end(JSON.stringify(propData));
 })
 
@@ -55,5 +54,19 @@ router.post("/updateAssign",(req,res)=>{
     });
 });
 
+//updating tenant userid
+router.post("/updateTID",(req,res)=>{
+    Property.updateOne({_id:req.query.pid},{$set:{
+        tenant_id:req.query.tid,
+    }},(err,resp)=>{
+        if(err){
+            console.log(err)
+            res.status(400).json({ err: 'TID updation error!' });
+        }
+        else{
+            res.status(200).json("tid updated")
+        }
+    });
+})
 
 module.exports = router;
