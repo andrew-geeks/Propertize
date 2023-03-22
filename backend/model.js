@@ -78,15 +78,11 @@ let assign = new schema(
             type: String,
             required: true
         },
-        start_date:{
-            type: Date,
+        tenure:{
+            type: Number,
             required: true
         },
-        end_date:{
-            type: Date,
-            required: true
-        }
-
+ 
     }
 )
 

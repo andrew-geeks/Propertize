@@ -35,7 +35,7 @@ export function Add(){
     var id = ReactSession.get("id");
     const formData = {ownerid:id,p_name:"",p_desc:"",area_type:"",p_type:"",p_size:"",bhk:"",location:"",rent_amt:"",p_status:"Not Assigned"}
     const [formValues,setFormValues] = useState(formData);
-
+    
     const formSubmit = (e) =>{
       e.preventDefault();
       console.log(formValues)

@@ -15,7 +15,10 @@ router.get("/getId",(req,res)=>{
     var mail = req.query.mail;
     Account.findOne({email:mail},(err,found)=>{
         if(found){
-            res.end(JSON.stringify({id:found._id}))
+            res.end(JSON.stringify({id:found._id,actype:found.actype}))
+        }
+        else{
+            res.status(400).json({ err: 'Invalid email' });
         }
     })
 })
