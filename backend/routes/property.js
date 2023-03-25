@@ -69,4 +69,44 @@ router.post("/updateTID",(req,res)=>{
     });
 })
 
+
+//called when agreeement is terminated
+router.post("/uTIDandAssign",(req,res)=>{
+    //for updating tenant_id and updating assign
+    Property.updateOne({_id:req.query.propid},{$set:{
+        tenant_id: "",
+        p_status: "Not Assigned",
+    }},(err,resp)=>{
+        if(err){
+            console.log(err);
+            res.status(400).json({ err: 'Termination backend error!' });
+        }
+        else{
+            res.status(200).json("prop. updated!");
+        }
+    })
+})
+
+
+router.post("/delProp",(req,res)=>{
+    Property.deleteOne({_id:req.query.propid},(err,res)=>{
+        if(err){
+            res.status(400).json({ err: 'Could not delete' });
+        }
+        else{
+            res.status(200).json("property deleted!");
+        }
+    });
+    
+})
+
+
+//deleting from assign table
+
+router.delete("/delAssign",(req,res)=>{
+    Assign.deleteOne({p_id:req.query.propid});
+    res.status(200).json("property ag. deleted!");
+});
+
+
 module.exports = router;

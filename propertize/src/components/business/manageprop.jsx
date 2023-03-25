@@ -50,18 +50,20 @@ function ManageProp(){
     const {propid}  = useParams();
     const { classes } = useStyles();
     ReactSession.setStoreType("localStorage");
-    var id = ReactSession.get("id");
+    var assigned=""; //setting whether prop. is assigned or not!
+    //var id = ReactSession.get("id");
     useEffect( ()=>{
         fetchItems(propid);
     },[propid]);
     const [items,setItems] = useState([]);
+    const [error,setError] = useState("");
+    const [suc,setSuc] = useState("");
     const fetchItems = async(id)=>{
         const response=await fetch("http://localhost:4000/property/getSProp?pid="+id)
         const data=await response.json()
         setItems(data);
     }
-    const formData = {pid:propid,p_name:items["p_name"],p_desc:items["p_desc"],p_size:items["p_size"],bhk:items["bhk"],location:items["location"],rent_amt:items["rent_amt"]}
-    
+    const formData = {pid:propid,p_name:items["p_name"],p_desc:items["p_desc"],p_size:items["p_size"],bhk:items["bhk"],location:items["location"],rent_amt:items["rent_amt"],p_status:items["p_status"]}
     items.map(item=>{
         formData.p_name = item.p_name
         formData.p_desc = item.p_desc
@@ -69,8 +71,11 @@ function ManageProp(){
         formData.bhk = item.bhk
         formData.location = item.location
         formData.rent_amt = item.rent_amt
+        formData.p_status = item.p_status
         return ""
     })
+
+    assigned = formData.p_status;
     const [formValues,setFormValues] = useState(formData);
 
     const formSubmit = (e) =>{
@@ -84,7 +89,56 @@ function ManageProp(){
         .catch(error =>{
           console.log("actionError",error);
         })
-      }
+    }
+
+    const delformSubmit = (e) =>{
+        e.preventDefault();
+        setSuc("");
+        setError("");
+        //check if prop. is assigned
+        if(assigned === "Assigned" ){
+            setError("Failed to delete!. The property is assigned.");
+        }
+        else{
+            //delete prop.
+            axios.post("http://localhost:4000/property/delProp?propid="+propid)
+            .then(res =>{
+                console.log(res);
+                //navigating after successful deletion
+                navigate("/manage");
+            })
+            .catch(error=>{
+                console.log("actionError",error);
+            })
+        }
+        
+
+    }
+
+    //func. for terminating agreement
+    const termAgFormSubmit = (e)=>{
+        e.preventDefault();
+        setSuc("");
+        setError("");
+
+        //delete from assign table
+        axios.delete("http://localhost:4000/property/delAssign?propid="+propid)
+        .then(async res=>{
+            //update property table
+            await axios.post("http://localhost:4000/property/uTIDandAssign?propid="+propid)
+            .then(resp=>{
+                //sucessful termination
+                setSuc("Agreement Terminated Successfully!");
+            })
+            .catch(error=>{
+                setError("Termination error!");
+            })
+
+        })
+        .catch(error=>{
+            setError("Termination Error!");
+        })
+    }
 
       
 
@@ -103,6 +157,8 @@ function ManageProp(){
                         <div style={{"padding-left":"5%","text-align":"center"}}>
                             <h2>Manage {item["p_name"]}</h2>
                             <em>Edit your property according to your preferences!</em>
+                            <p className="mail-warning">{error}</p>
+                            <p style={{"color":"green"}}>{suc}</p>
                         </div>
                         <form style={{"padding-left":"5%"}}>
                         <br/><br/>
@@ -139,9 +195,17 @@ function ManageProp(){
                          <br/><br/>
                          <div className="col">
                             <button type="submit" onClick={formSubmit} class="focus:outline-none text-white bg-purple-700 hover:bg-yellow-400 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Submit</button>
-                            <Button variant="outline" color="red" size="md">Delete Property</Button>
                         </div>
-
+                        </form>
+                        <form>
+                            <div className="col">
+                                <Button  type="submit" onClick={delformSubmit} variant="outline" color="red" size="md">Delete Property</Button>
+                            </div>
+                        </form>
+                        <form>
+                            <div style={{"padding-left":"5%","text-align":"center"}}>
+                                <Button  type="submit" onClick={termAgFormSubmit} variant="outline" color="orange" size="md">Terminate Agreement</Button>
+                            </div>
                         </form>
                         <Footer/>
                     </section>
