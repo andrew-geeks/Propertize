@@ -89,7 +89,7 @@ router.post("/uTIDandAssign",(req,res)=>{
 
 
 router.post("/delProp",(req,res)=>{
-    Property.deleteOne({_id:req.query.propid},(err,res)=>{
+    Property.deleteOne({_id:req.query.propid},(err,resp)=>{
         if(err){
             res.status(400).json({ err: 'Could not delete' });
         }
@@ -104,8 +104,15 @@ router.post("/delProp",(req,res)=>{
 //deleting from assign table
 
 router.delete("/delAssign",(req,res)=>{
-    Assign.deleteOne({p_id:req.query.propid});
-    res.status(200).json("property ag. deleted!");
+    Assign.deleteOne({p_id:req.query.propid},(err,resp)=>{
+        if(err){
+            res.status(400).json({ err: 'Could not terminate' });
+        }
+        else{
+            res.status(200).json("property ag. deleted!");
+        }
+    });
+    
 });
 
 

@@ -46,6 +46,7 @@ function Assign(){
     },[propid]);
     const [items,setItems] = useState([]);
     const [error,setError] = useState("");
+    const [suc,setSuc] = useState("");
     const [formValues,setFormValues] = useState(formData);
 
     const fetchItems = async(id)=>{
@@ -76,6 +77,8 @@ function Assign(){
                             await axios.post("http://localhost:4000/property/updateTID?pid="+formValues.p_id+"&tid="+formValues.u_id)
                             .then(respon=>{
                                 //notification recommended!
+                                setSuc("Property Assigned!");
+                                setTimeout(() => {  console.log("Sleep!"); }, 2000);
                                 navigate("/bdashboard")
                             })
                             
@@ -127,6 +130,7 @@ function Assign(){
                             <h3>Assign {item["p_name"]}</h3>
                             <em>Assign your property according to your preferences!</em>
                             <p className="mail-warning">{error}</p>
+                            <p style={{"color":"green"}}>{suc}</p>
                         </div>
                         <br/><br/>
                         <form style={{"padding-left":"5%"}}>

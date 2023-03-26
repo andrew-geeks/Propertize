@@ -129,6 +129,9 @@ function ManageProp(){
             .then(resp=>{
                 //sucessful termination
                 setSuc("Agreement Terminated Successfully!");
+                assigned = "Not Assigned";
+                setTimeout(() => {  console.log("Sleep!"); }, 2000);
+                window.location.reload();
             })
             .catch(error=>{
                 setError("Termination error!");

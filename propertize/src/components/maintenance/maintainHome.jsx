@@ -1,10 +1,10 @@
 import { Footer } from "../footer";
-import { Bnav } from "../bnav";
 import { ReactSession } from 'react-client-session';
 import { useEffect, useState } from "react";
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
 import { IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
+import { Nav } from "../navbar1";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
       width : '320px',
       height : '450px'
     },
-  
+    
     imageSection: {
       padding: theme.spacing.md,
       display: 'flex',
@@ -46,7 +46,12 @@ const useStyles = createStyles((theme) => ({
   }));
 
 
-function Manage(){
+
+
+
+
+
+function MaintainHome(){
     const navigate = useNavigate();
     const { classes } = useStyles();
     let image = require("../../images/card_home.jpg");
@@ -54,25 +59,30 @@ function Manage(){
     var value = ReactSession.get("id");
     useEffect( ()=>{
         fetchItems(value);
+        
     },[value]);
+
     const [items,setItems] = useState([]);
     const fetchItems = async(id)=>{
-        const response=await fetch("http://localhost:4000/property/getProp?id="+id)
+        const response=await fetch("http://localhost:4000/property/getAprop?tid="+id)
         const data=await response.json()
         setItems(data);
     }
 
+
+    console.log(items);
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
+            <Nav user={[{name:"test",image:""}]} tabs={[{name:"Maintenance",value:"maintenance"},{name:"Pay Rent",value:"payrent"}]}/>
             <br/>
             <div style={{"text-align":"center"}}>
-                <h2>Manage all your properties</h2>
+                <h2>Get your properties Maintained!</h2>
+                <em>Request maintenance to the owner by choosing the appropriate property.</em>
             </div>
             <hr/>
             <div style={{"padding-left":"5%"}}>
-                    {
-                      items.map(item=>(
+                {
+                    items.map(item=>(
                         <div className="col">
                         <Card withBorder radius="md" className={classes.card}>
                         <Card.Section className={classes.imageSection}>
@@ -120,16 +130,16 @@ function Manage(){
                                 </Text>
                             </div>
 
-                            <Button radius="xl" style={{ flex: 1 }} variant="outline" onClick={()=> navigate("/manage/"+item._id)}>
-                                Manage
+                            <Button radius="xl" style={{ flex: 1 }} color="orange" variant="outline" onClick={()=> navigate("/maintainprop/"+item._id)}>
+                                Request
                             </Button>
                             </Group>
                         </Card.Section>
                     </Card>
                     </div>
-                      ))
-                    }
-                    
+                    ))
+                }   
+                
                 </div>
                 <Footer/>
         </section>
@@ -137,4 +147,4 @@ function Manage(){
 }
 
 
-export default Manage;
+export default MaintainHome;

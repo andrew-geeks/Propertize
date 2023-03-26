@@ -71,7 +71,7 @@ function Dashboard(){
     else{
         return(
             <div>
-                <Nav user={[{name:"test",image:""}]} tabs={["Maintain","Pay Rent","Download Docs"]}/>
+                <Nav user={[{name:"test",image:""}]} tabs={[{name:"Maintenance",value:"maintenance"},{name:"Pay Rent",value:"payrent"}]}/>
                 <div style={{"padding-left":"5%"}}>
                     <h3>Assigned Properties({props.length})</h3>
                     <hr/>

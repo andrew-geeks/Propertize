@@ -96,7 +96,7 @@ let image = require("../images/logo.png");
 
 interface HeaderTabsProps {
   user: { name: string; image: string };
-  tabs: string[];
+  tabs: { name: string; value: string };
 }
 
 
@@ -117,8 +117,8 @@ export function Nav({ user, tabs }: HeaderTabsProps) {
   }
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
-      {tab}
+    <Tabs.Tab value={tab.value} key={tab.key}>
+      {tab.name}
     </Tabs.Tab>
   ));
 
@@ -179,7 +179,7 @@ export function Nav({ user, tabs }: HeaderTabsProps) {
         <Tabs
           defaultValue="Home"
           variant="outline"
-          onTabChange={(value)=>{console.log(value)}}
+          onTabChange={(value)=>{navigate("/"+value)}}
           classNames={{
             root: classes.tabs,
             tabsList: classes.tabsList,
