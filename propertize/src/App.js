@@ -23,6 +23,8 @@ import None from './components/404';
 import Assign from './components/business/assign';
 import MaintainHome from './components/maintenance/maintainHome';
 import MaintainProp from './components/maintenance/maintainProp';
+import MaintainRequests from './components/maintenance/mrequests';
+
 
 
 
@@ -82,6 +84,7 @@ function App() {
             <Route path='/assign/:propid' element={<BusinessRoute><Assign/></BusinessRoute>}/>
             <Route path='/maintenance' element={<PrivateRoute><MaintainHome/></PrivateRoute>}/>
             <Route path='/maintainprop/:propid' element={<PrivateRoute><MaintainProp/></PrivateRoute>}/>
+            <Route path='/mrequests' element={<PrivateRoute><MaintainRequests/></PrivateRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
           

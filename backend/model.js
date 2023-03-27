@@ -89,8 +89,42 @@ let assign = new schema(
     }
 )
 
+let maintenance = new schema(
+    {
+        p_id:{
+            type: String,
+            required: true
+        },
+        u_id:{
+            type: String,
+            required: true
+        },
+        m_date:{
+            type: Date,
+            required: true
+        },
+        m_type:{ 
+            type: String,
+            required: true
+        },
+        m_description:{
+            type: String,
+        },
+        priority:{
+            type: String,
+            required: true
+        },
+        m_status:{
+            type: String,
+            required: true
+        }
+
+    }
+)
+
 const Property = mongoose.model('property',property);
 const Account = mongoose.model('account',account);
 const Assign = mongoose.model('assign',assign);
+const Maintenance = mongoose.model('maintenance',maintenance);
 
-module.exports = {Property,Account,Assign};
+module.exports = {Property,Account,Assign,Maintenance};

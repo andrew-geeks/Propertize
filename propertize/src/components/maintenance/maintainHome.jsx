@@ -73,14 +73,16 @@ function MaintainHome(){
     console.log(items);
     return(
         <section>
-            <Nav user={[{name:"test",image:""}]} tabs={[{name:"Maintenance",value:"maintenance"},{name:"Pay Rent",value:"payrent"}]}/>
+            <Nav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"dashboard"},{name:"Maintenance",value:"maintenance"},{name:"Pay Rent",value:"payrent"}]}/>
             <br/>
             <div style={{"text-align":"center"}}>
                 <h2>Get your properties Maintained!</h2>
                 <em>Request maintenance to the owner by choosing the appropriate property.</em>
+                <br/>
+                <a href="/mrequests">See your requests>></a>
             </div>
             <hr/>
-            <div style={{"padding-left":"5%"}}>
+            <div style={{"padding-left":"5%"}} className="col">
                 {
                     items.map(item=>(
                         <div className="col">
@@ -141,6 +143,10 @@ function MaintainHome(){
                 }   
                 
                 </div>
+                <br/>
+                
+              
+                
                 <Footer/>
         </section>
     )
