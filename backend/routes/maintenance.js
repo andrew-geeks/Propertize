@@ -25,6 +25,23 @@ router.post("/maintainprop",(req,res)=>{
     })
 })
 
+//get maintenance requests
+router.get("/getRequests",async (req,res)=>{
+    const reqData = await Maintenance.find({u_id:req.query.uid}).lean();
+    var p_id;
+    var i = 0;
+
+    //inserting prop. name
+    for(i=0;i<reqData.length;i++){
+        p_id = reqData[i]["p_id"]
+        var propData = await Property.findOne({_id:p_id});
+        reqData[i].p_name = propData.p_name;
+    }
+    
+    res.end(JSON.stringify(reqData));
+
+})
+
 
 
 module.exports = router;
