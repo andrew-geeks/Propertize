@@ -67,7 +67,16 @@ function BDashboard(){
     return(
         <section>
             <div>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={
+            [
+              {name:"Dashboard",value:"bdashboard"},
+              {name:"Add +",value:"addproperty"},
+              {name:"Manage",value:"manage"},
+              {name:"Generate Docs.",value:"gendocs"},
+              {name:"Maintain",value:"mrequestshome"},
+              {name:"Insights✨",value:"insights"}
+            ]}/>
+
             <div style={{"padding-left":"5%"}}>
                 <h4>Your Properties({items.length})</h4>
                 <hr/>

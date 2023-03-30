@@ -99,6 +99,10 @@ let maintenance = new schema(
             type: String,
             required: true
         },
+        o_id:{
+            type: String,
+            required: true
+        },
         m_date:{
             type: Date,
             required: true

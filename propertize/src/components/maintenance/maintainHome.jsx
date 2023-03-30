@@ -82,7 +82,7 @@ function MaintainHome(){
                 <a href="/mrequests">See your requests>></a>
             </div>
             <hr/>
-            <div style={{"padding-left":"5%"}} className="col">
+            <div style={{"padding-left":"5%"}}>
                 {
                     items.map(item=>(
                         <div className="col">

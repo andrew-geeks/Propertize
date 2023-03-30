@@ -121,7 +121,7 @@ function Assign(){
     else{
         return(
             <section>
-                <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
+                <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Maintain",value:"mrequestshome"}]}/>
                 
                 {
                     items.map(item=>(

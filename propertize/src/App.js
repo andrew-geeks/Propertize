@@ -23,7 +23,9 @@ import None from './components/404';
 import Assign from './components/business/assign';
 import MaintainHome from './components/maintenance/maintainHome';
 import MaintainProp from './components/maintenance/maintainProp';
-import MaintainRequests from './components/maintenance/mrequests';
+import MaintainRequests from './components/maintenance/mrequests'; //for tenant
+import MrequestsHome from './components/maintenance/mrequestHome'; //for business
+import Insights from './components/business/insights';
 
 
 
@@ -85,6 +87,8 @@ function App() {
             <Route path='/maintenance' element={<PrivateRoute><MaintainHome/></PrivateRoute>}/>
             <Route path='/maintainprop/:propid' element={<PrivateRoute><MaintainProp/></PrivateRoute>}/>
             <Route path='/mrequests' element={<PrivateRoute><MaintainRequests/></PrivateRoute>}/>
+            <Route path='/mrequestshome' element={<BusinessRoute><MrequestsHome/></BusinessRoute>}/>
+            <Route path='/insights' element={<BusinessRoute><Insights/></BusinessRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
           

@@ -1,3 +1,5 @@
+//FOR TENANT
+
 import { Nav } from "../navbar1";
 import { Table } from '@mantine/core';
 import { Footer } from "../footer";
@@ -21,13 +23,14 @@ function MaintainRequests(){
         setItems(data);
       }
 
+
       const tableData = items.map(element=>(
         <tr>
             <td>{element.p_name}</td>
             <td>{element.m_type}</td>
             <td>{element.m_date}</td>
-            <td>{element.priority}</td>
-            <td>{element.m_status}</td>
+            <td style={{"color":element.priority === "Medium"?"Orange":"Red"}}><b>{element.priority}</b></td>
+            <td style={{"color": element.m_status === "Not Completed"?"orange":"green" }}><b>{element.m_status}</b></td>
         </tr>
       ))
 

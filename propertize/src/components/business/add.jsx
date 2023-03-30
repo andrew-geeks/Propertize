@@ -53,7 +53,7 @@ export function Add(){
 
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Maintain",value:"mrequestshome"}]}/>
             <div style={{"text-align":"center"}}>
             <h2>Add your property🏘️!</h2>
             <em>Add and manage them with ease!</em>

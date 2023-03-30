@@ -64,7 +64,7 @@ function Manage(){
 
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Generate Docs.",value:"gendocs"},{name:"Maintain",value:"mrequestshome"}]}/>
             <br/>
             <div style={{"text-align":"center"}}>
                 <h2>Manage all your properties</h2>
