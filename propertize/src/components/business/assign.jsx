@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import None from "../404";
 import axios from 'axios';
+import { showNotification } from "@mantine/notifications";
+import {IconTransferIn, IconX } from "@tabler/icons";
 
 
 
@@ -77,6 +79,13 @@ function Assign(){
                             await axios.post("http://localhost:4000/property/updateTID?pid="+formValues.p_id+"&tid="+formValues.u_id)
                             .then(respon=>{
                                 //notification recommended!
+                                showNotification({
+                                    title: 'Success',
+                                    message: 'Your Property has been assigned!',
+                                    autoClose: 5000,
+                                    color: 'green',
+                                    icon: <IconTransferIn />,
+                                  })
                                 setSuc("Property Assigned!");
                                 setTimeout(() => {  console.log("Sleep!"); }, 2000);
                                 navigate("/bdashboard")
@@ -90,16 +99,31 @@ function Assign(){
                     console.log("Error in inserting")
                     console.log(formValues)
                     setError("Could not assign⚠️!");
+                    showNotification({
+                        title: 'Failed',
+                        message: 'Your Property could not be assigned!',
+                        autoClose: 5000,
+                        color: 'red',
+                        icon: <IconX />,
+                      })
                 })
             }
     
             else{
                 setError("Enter a tenant MailId⚠️!");
+
             }
         })
         .catch(error=>{
             console.log('actionError', error )
             setError("Invalid Email⚠️!");
+            showNotification({
+                title: 'Failed',
+                message: 'Invalid Email⚠️!',
+                autoClose: 5000,
+                color: 'red',
+                icon: <IconX />,
+              })
         })
     }
 

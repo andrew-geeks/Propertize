@@ -8,32 +8,40 @@ let property = new schema(
             required : true
         },
         tenant_id : {
-            type : String,
-        },
-        p_name:{
             type : String
             
         },
+        p_name:{
+            type : String,
+            required : true
+        },
         p_desc:{
-            type : String
+            type : String,
+            required : true
         },
         area_type:{
-            type : String
+            type : String,
+            required : true
         },
         p_type:{
-            type : String
+            type : String,
+            required : true
         },
         p_size:{
-            type : Number
+            type : Number,
+            required : true
         },
         bhk:{
-            type : Number
+            type : Number,
+            required : true
         },
         location:{
-            type : String
+            type : String,
+            required : true
         },
         rent_amt:{
-            type : Number
+            type : Number,
+            required : true
         },
         p_status:{
             type : String

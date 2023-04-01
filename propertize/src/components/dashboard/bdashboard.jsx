@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
 import { IconGasStation, IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
+import { showNotification } from '@mantine/notifications';
+
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -66,6 +68,8 @@ function BDashboard(){
 
     return(
         <section>
+      
+      
             <div>
             <Bnav user={[{name:"test",image:""}]} tabs={
             [
@@ -77,6 +81,7 @@ function BDashboard(){
               {name:"Insights✨",value:"insights"}
             ]}/>
 
+        
             <div style={{"padding-left":"5%"}}>
                 <h4>Your Properties({items.length})</h4>
                 <hr/>

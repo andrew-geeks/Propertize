@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ReactSession } from 'react-client-session';
 import { createStyles, Select, TextInput } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck,IconX } from '@tabler/icons';
 
 import { Footer } from "../footer";
 
@@ -42,11 +44,26 @@ export function Add(){
       axios.post("http://localhost:4000/business/add/",formValues)
       .then(res =>{
         console.log(res.data);
+        showNotification({
+          title: 'Success',
+          message: 'Your Property has been added!',
+          autoClose: 5000,
+          color: 'green',
+          icon: <IconCheck />,
+        })
+
         //after successfull adding
         navigate("/bdashboard")
       })
       .catch(error =>{
         console.log("actionError",error);
+        showNotification({
+          title: 'Failed',
+          message: 'Could not add your property!',
+          autoClose: 5000,
+          color: 'red',
+          icon: <IconX />,
+        })
       })
     }
 

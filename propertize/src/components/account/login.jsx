@@ -2,7 +2,8 @@ import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ReactSession } from 'react-client-session';
-
+import { showNotification } from "@mantine/notifications";
+import { IconX } from "@tabler/icons";
 import {
     TextInput,
     PasswordInput,
@@ -62,16 +63,24 @@ var id="";
                 actype = res.data.actype;
                 ReactSession.set("actype",actype);
                 redirect(actype)
+                showNotification({
+                  title: 'Logged In',
+                  message: 'Successfully logged in!',
+                })
             })
-            
-            
-            //navigating after successfull login
             
             
         })
         .catch( error => {
             console.log('actionError', error )
             setWrong("Wrong Email/Password⚠️!")
+            showNotification({
+              title: 'Oh no!',
+              message: 'Incorrect Email/Password..',
+              autoClose: 5000,
+              color: 'red',
+              icon: <IconX />,
+            })
           });
     }
 
@@ -90,7 +99,7 @@ var id="";
             Create account
           </Anchor>
         </Text>
-        <p className="mail-warning">{wrong}</p>
+        <p style={{"text-align":"center"}} className="mail-warning">{wrong}</p>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <TextInput label="Email" placeholder="you@something.com" value={formValues.email} onChange={(e)=> setFormValues({...formValues,email : e.target.value})} required />
           <PasswordInput label="Password" placeholder="" required mt="md" value={formValues.password} onChange={(e)=> setFormValues({...formValues,password : e.target.value})}/>

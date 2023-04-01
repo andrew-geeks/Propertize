@@ -24,6 +24,7 @@ router.post("/add",(req,res)=>{
 
     addProp.save((err)=>{
         if(err){
+            console.log(err);
             res.status(400).json({ err: 'Error in insertion!' });
         }
         else{

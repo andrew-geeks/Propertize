@@ -1,6 +1,7 @@
 import { ReactSession } from 'react-client-session';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { showNotification } from '@mantine/notifications';
 
 import {
   createStyles,
@@ -113,6 +114,10 @@ export function Nav({ user, tabs }: HeaderTabsProps) {
     ReactSession.remove("id")
     ReactSession.remove("actype")
     console.log("logged out!!")
+    showNotification({
+      title: 'Logged Out',
+      message: 'Successfully logged out!',
+    })
     navigate("/")
   }
 
