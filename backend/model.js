@@ -45,9 +45,13 @@ let property = new schema(
         },
         p_status:{
             type : String
+        },
+        p_rent_month:{
+            type: Number
         }
     }
 )
+
 
 let account = new schema(
     {
@@ -134,9 +138,36 @@ let maintenance = new schema(
     }
 )
 
+let payment = new schema(
+    {
+        p_id:{
+            type: String,
+            required: true
+        },
+        u_id:{
+            type: String,
+            required: true
+        },
+        o_id:{
+            type: String,
+            required: true
+        },
+        p_date:{
+            type: Date,
+            required: true
+        },
+        rent:{
+            type: Number,
+            required: true
+        }
+    }
+)
+
+
 const Property = mongoose.model('property',property);
 const Account = mongoose.model('account',account);
 const Assign = mongoose.model('assign',assign);
 const Maintenance = mongoose.model('maintenance',maintenance);
+const Payment = mongoose.model('payment',payment);
 
-module.exports = {Property,Account,Assign,Maintenance};
+module.exports = {Property,Account,Assign,Maintenance,Payment};

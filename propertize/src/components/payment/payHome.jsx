@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { Nav } from "../navbar1";
 import axios from 'axios';
 import logo from "../../images/logo.png";
+import { showNotification } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons';
+
+var date = new Date();
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -68,6 +72,7 @@ function Payhome(){
         setItems(data);
     }
 
+
     function loadScript(src) {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -83,7 +88,16 @@ function Payhome(){
     }
 
 
-    async function displayRazorpay(rent) {
+    async function displayRazorpay(pid,oid,rent,rentmonth) {
+        if(rentmonth === date.getMonth()+1){
+            return showNotification({
+                title: 'Done!',
+                message: 'Rent paid already!',
+                autoClose: 5000,
+                color: 'blue',
+                icon: <IconCheck />,
+              })
+        }
         const res = await loadScript(
             "https://checkout.razorpay.com/v1/checkout.js"
         );
@@ -120,8 +134,28 @@ function Payhome(){
                     razorpaySignature: response.razorpay_signature,
                 };
 
-                const result = await axios.post("http://localhost:4000/payment/success", data);
+                const result = await axios.post("http://localhost:4000/payment/success", data)
+                .then(async res=>{
+                    //inserting into payment coll
+                    await axios.post("http://localhost:4000/payment/paydetails?p_id="+pid+"&o_id="+oid+"&u_id="+value+"&rent="+rent)
+                    .then(async resp=>{
+                        console.log(resp);
+                        //updating property coll
+                        await axios.post("http://localhost:4000/payment/uPayMonth?p_id="+pid+"&status=update")
+                        .then(respo=>{
+                            console.log(respo);
+                            window.location.reload();
+                        })
+                        .catch(err=>{
+                            console.log(err);
+                        })
 
+                    })
+                    .catch(err=>{
+                        console.log(err);
+                    })
+                })
+                
                 alert(result.data.msg);
             },
             prefill: {
@@ -206,7 +240,7 @@ function Payhome(){
                                 </Text>
                             </div>
 
-                            <Button radius="xl" style={{ flex: 1 }} color="red" variant="outline" onClick={()=>displayRazorpay(item.rent_amt)}>
+                            <Button radius="xl" style={{ flex: 1 }} color="red" variant="outline" onClick={()=>displayRazorpay(item._id,item.owner_id,item.rent_amt,item.p_rent_month)}>
                                 Pay Rent
                             </Button>
                             </Group>

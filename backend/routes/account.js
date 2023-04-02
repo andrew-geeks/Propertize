@@ -8,7 +8,7 @@ dotenv.config();
 
 const router = express();
 const saltRounds = 11;
-const {Account} = require("../model.js")
+const {Account,Property} = require("../model.js")
 
 
 router.get("/getId",(req,res)=>{
@@ -140,6 +140,38 @@ router.post("/forgotpassword",(req,res)=>{
     })
 })
 
+router.get("/checktoken",async (req,res)=>{
+    const data = await Account.find({rtoken:req.query.rtoken});
+    res.end(JSON.stringify(data));
+})
 
+router.post("/setnewpassword",async(req,res)=>{
+    bcrypt.hash(req.body.pswd, saltRounds, (err, hash)=> {
+        Account.updateOne({rtoken:req.query.rtoken},{$set:{password:hash}},
+        (err,resp)=>{
+            if(err){
+                console.log(err)
+                res.status(400).json({ err: 'Could not update password!' });
+            }
+            else{
+                res.status(200).json("password updated");
+            }
+        })
+    });
+}) 
+
+router.post("/remToken",async (req,res)=>{
+    Account.updateOne({rtoken:req.query.rtoken},{$set:{rtoken:""}},
+        (err,resp)=>{
+            if(err){
+                console.log(err)
+                res.status(400).json({ err: 'token removal failed!' });
+            }
+            else{
+                res.status(200).json("token removed!");
+            }
+        })
+    
+})
 
 module.exports = router;

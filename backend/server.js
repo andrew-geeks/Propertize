@@ -17,6 +17,7 @@ const payRoute = require('./routes/payment.js'); //payment
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.json({ extended: false }));
 //routeHandler
 app.use("/",homeRoute);
 app.use("/account",accRoute);

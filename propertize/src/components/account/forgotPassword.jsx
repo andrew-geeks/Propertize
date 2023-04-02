@@ -15,6 +15,8 @@ import {
   import { IconArrowLeft } from '@tabler/icons';
   import { useState } from "react";
   import axios from 'axios';
+  import { showNotification } from '@mantine/notifications';
+  import { IconCheck,IconX } from '@tabler/icons';
   
   const useStyles = createStyles((theme) => ({
     title: {
@@ -50,10 +52,24 @@ import {
       .then(res=>{
         setWrong("")
         setReset("Reset password link is sent to your mail!")
+        showNotification({
+          title: 'Success',
+          message: 'Reset link sent to your mail📧!',
+          autoClose: 5000,
+          color: 'green',
+          icon: <IconCheck />,
+        })
       })
       .catch(err=>{
         setReset("")
         setWrong("Invalid Email")
+        showNotification({
+          title: 'Failed',
+          message: 'Password is invalid!',
+          autoClose: 5000,
+          color: 'red',
+          icon: <IconX />,
+        })
       })
     }
   

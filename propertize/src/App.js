@@ -78,7 +78,7 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/predict' element={<Predict/>} />
             <Route path='/forgotpassword' element={<ForgotPassword/>} />
-            <Route path='/reset' element={<ResetPassword/>} />
+            <Route path='/reset/:rtoken' element={<ResetPassword/>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
             <Route path='/Bdashboard' element={<PrivateRoute><BDashboard/></PrivateRoute>}/>
             <Route path='/addproperty' element={<PrivateRoute><Add/></PrivateRoute>}/>
