@@ -12,7 +12,7 @@ const accRoute = require('./routes/account.js');
 const bussRoute = require('./routes/business.js');
 const propRoute = require('./routes/property.js');
 const mainRoute = require('./routes/maintenance.js'); //maintenance
-
+const payRoute = require('./routes/payment.js'); //payment
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -23,6 +23,7 @@ app.use("/account",accRoute);
 app.use("/business",bussRoute);
 app.use("/property",propRoute);
 app.use("/maintenance",mainRoute);
+app.use("/payment",payRoute);
 
 mongoose.connect('mongodb://localhost:27017/propertize',{useNewUrlParser: true});
 const connection = mongoose.connection;

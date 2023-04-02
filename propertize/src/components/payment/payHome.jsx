@@ -5,6 +5,8 @@ import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@
 import { IconRuler, IconMapPin, IconHome2 } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 import { Nav } from "../navbar1";
+import axios from 'axios';
+import logo from "../../images/logo.png";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -53,10 +55,169 @@ function Payhome(){
     const { classes } = useStyles();
     let image = require("../../images/card_home.jpg");
     ReactSession.setStoreType("localStorage");
+    var value = ReactSession.get("id");
+    useEffect( ()=>{
+        fetchItems(value);
+        
+    },[value]);
+
+    const [items,setItems] = useState([]);
+    const fetchItems = async(id)=>{
+        const response=await fetch("http://localhost:4000/property/getAprop?tid="+id)
+        const data=await response.json()
+        setItems(data);
+    }
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
+
+
+    async function displayRazorpay(rent) {
+        const res = await loadScript(
+            "https://checkout.razorpay.com/v1/checkout.js"
+        );
+
+        if (!res) {
+            alert("Razorpay SDK failed to load. Are you online?");
+            return;
+        }
+
+        // creating a new order
+        const result = await axios.post("http://localhost:4000/payment/orders?rent="+rent);
+
+        if (!result) {
+            alert("Server error. Are you online?");
+            return;
+        }
+
+        // Getting the order details back
+        const { amount, id: order_id, currency } = result.data;
+
+        const options = {
+            key: "rzp_test_6G85AzqmhNoBUK", // Enter the Key ID generated from the Dashboard
+            amount: amount.toString(),
+            currency: currency,
+            name: "Propertize Inc.",
+            description: "Rental Payment Transaction",
+            image: { logo },
+            order_id: order_id,
+            handler: async function (response) {
+                const data = {
+                    orderCreationId: order_id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpaySignature: response.razorpay_signature,
+                };
+
+                const result = await axios.post("http://localhost:4000/payment/success", data);
+
+                alert(result.data.msg);
+            },
+            prefill: {
+                name: "Propertize Inc",
+                email: "propertizeinc@gmail.com",
+                contact: "+919923345741",
+            },
+            notes: {
+                address: "Propertize, Bengaluru",
+            },
+            theme: {
+                color: "#61dafb",
+            },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+}
+
+
+
+
+
 
     return(
         <section>
-            
+            <Nav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"dashboard"},{name:"Maintenance",value:"maintenance"},{name:"Pay Rent",value:"payrent"}]}/>
+            <br/>
+            <div style={{"text-align":"center"}}>
+                <h2>Pay your rent!</h2>
+                <em>Rent amount will be directly transferred to tenant with o% commission!</em>
+                <br/>
+            </div>
+            <hr/>
+            <div style={{"padding-left":"5%"}}>
+                {
+                    items.map(item=>(
+                        <div className="col">
+                        <Card withBorder radius="md" className={classes.card}>
+                        <Card.Section className={classes.imageSection}>
+                            <Image src={image} alt="Home"/>
+                        </Card.Section>
+
+                        <Group position="apart" mt="md">
+                            <div>
+                            <Text weight={500}>{item.p_name}</Text>
+                            <Text size="xs" color="dimmed">
+                                {item.p_desc}
+                            </Text>
+                            </div>
+                            <Badge variant="outline">{item.p_type}</Badge>
+                        </Group>
+                        
+                        <Card.Section className={classes.section} mt="md">
+                            <Text size="sm" color="dimmed" className={classes.label}>
+                            Basic details
+                            </Text>
+
+                            <Group spacing={8} mb={-8}>
+                            <Center>
+                            <IconHome2 size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.bhk} BHK</Text>
+                            </Center>
+                            <Center>
+                            <IconRuler size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.p_size} SQFT</Text>
+                            </Center>
+                            <Center>
+                            <IconMapPin size={18} className={classes.icon} stroke={1.5} />
+                            <Text size="xs">{item.location}</Text>
+                            </Center>
+                            </Group>
+                        </Card.Section>
+                        <Card.Section className={classes.section}>
+                            <Group spacing={30}>
+                            <div>
+                                <Text size="xl" weight={700} sx={{ lineHeight: 1 }}>
+                                Rs. {item.rent_amt}.00
+                                </Text>
+                                <Text size="sm" color="dimmed" weight={500} sx={{ lineHeight: 1 }} mt={3}>
+                                per month
+                                </Text>
+                            </div>
+
+                            <Button radius="xl" style={{ flex: 1 }} color="red" variant="outline" onClick={()=>displayRazorpay(item.rent_amt)}>
+                                Pay Rent
+                            </Button>
+                            </Group>
+                        </Card.Section>
+                    </Card>
+                    </div>
+                    ))
+                }   
+                
+                </div>
+                <br/>
         </section>
     )
 }

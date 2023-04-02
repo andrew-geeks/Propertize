@@ -26,6 +26,7 @@ import MaintainProp from './components/maintenance/maintainProp';
 import MaintainRequests from './components/maintenance/mrequests'; //for tenant
 import MrequestsHome from './components/maintenance/mrequestHome'; //for business
 import Insights from './components/business/insights';
+import Payhome from './components/payment/payHome';
 
 
 
@@ -89,6 +90,7 @@ function App() {
             <Route path='/mrequests' element={<PrivateRoute><MaintainRequests/></PrivateRoute>}/>
             <Route path='/mrequestshome' element={<BusinessRoute><MrequestsHome/></BusinessRoute>}/>
             <Route path='/insights' element={<BusinessRoute><Insights/></BusinessRoute>}/>
+            <Route path='/payrent' element={<PrivateRoute><Payhome/></PrivateRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
           
