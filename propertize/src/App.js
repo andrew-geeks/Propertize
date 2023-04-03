@@ -27,7 +27,8 @@ import MaintainRequests from './components/maintenance/mrequests'; //for tenant
 import MrequestsHome from './components/maintenance/mrequestHome'; //for business
 import Insights from './components/business/insights';
 import Payhome from './components/payment/payHome';
-
+import ViewpropO from './components/property/viewpropO';
+import ViewpropT from './components/property/viewpropT';
 
 
 
@@ -91,6 +92,8 @@ function App() {
             <Route path='/mrequestshome' element={<BusinessRoute><MrequestsHome/></BusinessRoute>}/>
             <Route path='/insights' element={<BusinessRoute><Insights/></BusinessRoute>}/>
             <Route path='/payrent' element={<PrivateRoute><Payhome/></PrivateRoute>}/>
+            <Route path='/viewpropt' element={<PrivateRoute><ViewpropT/></PrivateRoute>}/>
+            <Route path='/viewpropo' element={<BusinessRoute><ViewpropO/></BusinessRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
           
