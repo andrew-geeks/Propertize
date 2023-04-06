@@ -156,20 +156,28 @@ function ManageProp(){
             .then(async resp=>{
                 //update pay month
                 await axios.post("http://localhost:4000/payment/uPayMonth?p_id="+propid+"&status=delete")
-                .then(respo=>{
-                    //sucessful termination
-                    console.log(respo);
-                    setSuc("Agreement Terminated Successfully!");
-                    assigned = "Not Assigned";
-                    showNotification({
-                        title: 'Terminated',
-                        message: 'Property agreement terminated successfully!',
-                        autoClose: 5000,
-                        color: 'orange',
-                        icon: <IconHomeMinus />,
+                .then(async respo=>{
+                    //delete mainten. record (if any)
+                    await axios.post("http://localhost:4000/maintenance/delmaintenance?propid="+propid)
+                    .then(respon=>{
+                        //sucessful termination
+                        console.log(respo);
+                        setSuc("Agreement Terminated Successfully!");
+                        assigned = "Not Assigned";
+                        showNotification({
+                            title: 'Terminated',
+                            message: 'Property agreement terminated successfully!',
+                            autoClose: 5000,
+                            color: 'orange',
+                            icon: <IconHomeMinus />,
+                        })
+                        setTimeout(() => {  console.log("Sleep!"); }, 3000);
+                        window.location.reload();
                     })
-                    setTimeout(() => {  console.log("Sleep!"); }, 3000);
-                    window.location.reload();
+                    .catch(err=>{
+                        console.log(err);
+                    })
+                    
                 })
                 .catch(err=>{
                     console.log(err);

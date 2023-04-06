@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import None from "../404";
 import axios from 'axios';
 import { Nav } from "../navbar1";
+import {IconToolsOff} from "@tabler/icons";
+import { showNotification } from "@mantine/notifications";
 
 
 const useStyles = createStyles((theme) => ({
@@ -69,6 +71,13 @@ function MaintainProp(){
       .then(res =>{
         console.log(res.data);
         //after successfull adding maintenance
+        showNotification({
+          title: 'Success',
+          message: 'Maintenace Requested🛠️!',
+          autoClose: 5000,
+          color: 'orange',
+          icon: <IconToolsOff />,
+      })
         navigate("/maintenance")
       })
       .catch(error =>{

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express();
 
-const {Assign,Property} = require("../model.js");
+const {Assign,Property, Account} = require("../model.js");
 
 
 router.get("/getProp",async (req,res)=>{
@@ -21,6 +21,18 @@ router.get("/getAProp",async (req,res)=>{
     const propData = await Property.find({tenant_id:req.query.tid});
     res.end(JSON.stringify(propData));
 })
+
+//view property - tenant
+router.get("/viewprop",async (req,res)=>{
+    const propData = await Property.find({_id:req.query.propid}).lean();
+    var o_id = propData[0].owner_id;
+    var accData = await Account.find({_id:o_id});
+    propData[0].o_name = accData[0].name;
+    res.end(JSON.stringify(propData));
+
+})
+
+
 
 router.post("/assign",(req,res)=>{
     const newAssign = new Assign({

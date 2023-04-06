@@ -3,6 +3,7 @@
 function ViewpropO(){
     return(
         <section>
+            
             <h2>Property Details</h2>
         </section>
     )

@@ -123,7 +123,7 @@ function Dashboard(){
                                     </Text>
                                 </div>
 
-                                <Button radius="xl" variant="outline" color="yellow" style={{ flex: 1 }}>
+                                <Button radius="xl" variant="outline" color="yellow" style={{ flex: 1 }} onClick={()=>{navigate("/viewpropt/"+prop._id)}}>
                                     View Details
                                 </Button>
                                 </Group>

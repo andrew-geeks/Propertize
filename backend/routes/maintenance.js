@@ -97,6 +97,18 @@ router.post("/setcomplete",(req,res)=>{
     
 });
 
+//delete maintenance rec.
+router.post("/delmaintenance",(req,res)=>{
+    Maintenance.deleteOne({p_id:req.query.propid},(err,resp)=>{
+        if(err){
+            res.status(400).json({err: 'could not delete'});
+        }
+        else{
+            res.status(200).json("maintenance rec. deleted");
+        }
+    })
+})
+
 
 
 module.exports = router;

@@ -92,7 +92,7 @@ function App() {
             <Route path='/mrequestshome' element={<BusinessRoute><MrequestsHome/></BusinessRoute>}/>
             <Route path='/insights' element={<BusinessRoute><Insights/></BusinessRoute>}/>
             <Route path='/payrent' element={<PrivateRoute><Payhome/></PrivateRoute>}/>
-            <Route path='/viewpropt' element={<PrivateRoute><ViewpropT/></PrivateRoute>}/>
+            <Route path='/viewpropt/:propid' element={<PrivateRoute><ViewpropT/></PrivateRoute>}/>
             <Route path='/viewpropo' element={<BusinessRoute><ViewpropO/></BusinessRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
