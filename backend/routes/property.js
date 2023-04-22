@@ -32,6 +32,16 @@ router.get("/viewprop",async (req,res)=>{
 
 })
 
+//view property - owner
+router.get("/viewpropo",async (req,res)=>{
+    const propData = await Property.find({_id:req.query.propid}).lean();
+    var t_id = propData[0].tenant_id;
+    var accData = await Account.find({_id:t_id});
+    propData[0].t_name = accData[0].name;
+    res.end(JSON.stringify(propData));
+
+})
+
 
 
 router.post("/assign",(req,res)=>{

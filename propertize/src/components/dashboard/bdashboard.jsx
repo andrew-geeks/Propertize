@@ -90,13 +90,13 @@ function BDashboard(){
                       items.map(item=>(
                         <div className="col">
                         <Card withBorder radius="md" className={classes.card}>
-                        <Card.Section className={classes.imageSection}>
+                        <Card.Section className={classes.imageSection} onClick={()=> navigate("/viewpropo/"+item._id)}>
                             <Image src={image} alt="Home"/>
                         </Card.Section>
 
                         <Group position="apart" mt="md">
                             <div>
-                            <Text weight={500}>{item.p_name}</Text>
+                            <Text weight={500}  onClick={()=> navigate("/viewpropo/"+item._id)}>{item.p_name}</Text>
                             <Text size="xs" color="dimmed">
                                 {item.p_desc}
                             </Text>

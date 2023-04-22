@@ -58,7 +58,7 @@ function MrequestsHome(){
 
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Maintain",value:"mrequestshome"}]}/>
+            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Maintain",value:"mrequestshome"},{name:"Generate Docs.",value:"gendocs"},{name:"Insights✨",value:"insights"}]}/>
             <div style={{"text-align":"center"}}>
                 <h3>Pending Requests({items.length})</h3>
                 <p>Finish maintenance of properties and set it <span style={{"color":"green"}}><b>complete</b></span> here.</p>

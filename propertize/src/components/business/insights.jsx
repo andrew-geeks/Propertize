@@ -52,6 +52,7 @@ function Insights(){
       const payTableData = items1.map(element=>(
         <tr>
           <td>{element.p_name}</td>
+          <td>{element.t_name}</td>
           <td>{element.p_date}</td>
           <td>{element.rent}</td>
         </tr>
@@ -116,6 +117,7 @@ function Insights(){
                         <thead>
                             <tr>
                             <th>Property Name</th>
+                            <th>Payee Name</th>
                             <th>Payment Date</th>
                             <th>Recieved Amount</th>
                             </tr>
