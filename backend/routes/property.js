@@ -123,6 +123,12 @@ router.post("/delProp",(req,res)=>{
 })
 
 
+//deleting property reports
+router.post("/delpropreports",(req,res)=>{
+    
+})
+
+
 //deleting from assign table
 
 router.delete("/delAssign",(req,res)=>{

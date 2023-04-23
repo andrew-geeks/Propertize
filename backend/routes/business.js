@@ -4,6 +4,11 @@ const mail = require('../Mail.js');
 const router = express();
 const {Property} = require("../model.js")
 
+const officegen = require('officegen');
+const fs = require('fs');
+const docx = officegen('docx');
+
+
 
 
 
@@ -62,6 +67,17 @@ router.get("/delProp",(req,resp)=>{
             resp.status(200).json("property_deleted")
         }
     })
+})
+
+router.post("/gendocs",(req,res)=>{
+    const p = docx.createP(); 
+    p.addText('Rent Agreement\n',{bold:true});
+    p.addText('Mr/Mrs/Ms. '+req.body.name+' residing at '+req.body.address+' is giving their property located at '+req.body.rentaddress+' to Mr/Mrs/Ms. '+req.body.tname+'\n with effect of '+req.body.sdate+' to '+req.body.edate+'.\n')
+    p.addText('A rent amount of Rs.'+req.body.ramount+' has to be paid to the owner in a monthly basis on or before 5th of every month.\n');
+    p.addText('With Regards\n'+req.body.name)    
+    const out = fs.createWriteStream('../agreement.docx');
+    docx.generate(out);
+    res.status(200).json("Agreement generated")
 })
 
 

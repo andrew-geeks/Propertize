@@ -29,8 +29,7 @@ import Insights from './components/business/insights';
 import Payhome from './components/payment/payHome';
 import ViewpropO from './components/property/viewpropO';
 import ViewpropT from './components/property/viewpropT';
-
-
+import Gendocs from './components/gendocs';
 
 
 
@@ -94,6 +93,7 @@ function App() {
             <Route path='/payrent' element={<PrivateRoute><Payhome/></PrivateRoute>}/>
             <Route path='/viewpropt/:propid' element={<PrivateRoute><ViewpropT/></PrivateRoute>}/>
             <Route path='/viewpropo/:propid' element={<BusinessRoute><ViewpropO/></BusinessRoute>}/>
+            <Route path='/gendocs' element={<BusinessRoute><Gendocs/></BusinessRoute>}/>
             <Route path='/none' element={<None/>}/>
           </Routes>
           
