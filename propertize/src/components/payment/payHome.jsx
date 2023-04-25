@@ -119,7 +119,7 @@ function Payhome(){
         const { amount, id: order_id, currency } = result.data;
 
         const options = {
-            key: "rzp_test_6G85AzqmhNoBUK", // Enter the Key ID generated from the Dashboard
+            key: "rzp_test_pcmMzVt3vZf4Pp", // Enter the Key ID generated from the Dashboard
             amount: amount.toString(),
             currency: currency,
             name: "Propertize Inc.",
