@@ -48,6 +48,9 @@ let property = new schema(
         },
         p_rent_month:{
             type: Number
+        },
+        edit_date:{
+            type: Number
         }
     }
 )

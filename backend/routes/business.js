@@ -8,7 +8,7 @@ const officegen = require('officegen');
 const fs = require('fs');
 const docx = officegen('docx');
 
-
+var datetime = new Date();
 
 
 
@@ -46,7 +46,8 @@ router.post("/updateProp",(req,resp)=>{
         p_size:req.body.p_size,
         bhk:req.body.bhk,
         location:req.body.location,
-        rent_amt:req.body.rent_amt
+        rent_amt:req.body.rent_amt,
+        edit_date:datetime.getMonth()+1
     }},(err,res)=>{
         if(err){
             console.log(err)
@@ -75,7 +76,7 @@ router.post("/gendocs",(req,res)=>{
     p.addText('Mr/Mrs/Ms. '+req.body.name+' residing at '+req.body.address+' is giving their property located at '+req.body.rentaddress+' to Mr/Mrs/Ms. '+req.body.tname+'\n with effect of '+req.body.sdate+' to '+req.body.edate+'.\n')
     p.addText('A rent amount of Rs.'+req.body.ramount+' has to be paid to the owner in a monthly basis on or before 5th of every month.\n');
     p.addText('With Regards\n'+req.body.name)    
-    const out = fs.createWriteStream('../agreement.docx');
+    const out = fs.createWriteStream('C:/Users/andre/Downloads/agreement.docx');
     docx.generate(out);
     res.status(200).json("Agreement generated")
 })

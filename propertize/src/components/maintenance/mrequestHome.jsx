@@ -40,7 +40,7 @@ function MrequestsHome(){
         <tr>
         <td>{element.p_name}</td>
         <td>{element.m_type}</td>
-        <td>{element.m_date}</td>
+        <td>{element.m_date.split('T00:00:00.000Z')}</td>
         <td style={{"color":element.priority === "Medium"?"Orange":"Red"}}><b>{element.priority}</b></td>
         <td>{element.m_status}</td>
         <td>{

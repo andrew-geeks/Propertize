@@ -43,7 +43,7 @@ function Insights(){
         <tr>
             <td>{element.p_name}</td>
             <td>{element.m_type}</td>
-            <td>{element.m_date}</td>
+            <td>{element.m_date.split('T00:00:00.000Z')}</td>
             <td style={{"color":element.priority === "Medium"?"Orange":element.priority === "Low"?"green":"Red"}}><b>{element.priority}</b></td>
             <td style={{"color": element.m_status === "Not Completed"?"orange":"green" }}><b>{element.m_status}</b></td>
         </tr>
@@ -53,7 +53,7 @@ function Insights(){
         <tr>
           <td>{element.p_name}</td>
           <td>{element.t_name}</td>
-          <td>{element.p_date}</td>
+          <td>{element.p_date.split('T00:00:00.000Z')}</td>
           <td>{element.rent}</td>
         </tr>
       ))
