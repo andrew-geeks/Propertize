@@ -70,7 +70,16 @@ export function Add(){
 
     return(
         <section>
-            <Bnav user={[{name:"test",image:""}]} tabs={[{name:"Dashboard",value:"bdashboard"},{name:"Add +",value:"addproperty"},{name:"Manage",value:"manage"},{name:"Maintain",value:"mrequestshome"}]}/>
+             <Bnav user={[{name:"test",image:""}]} tabs={
+            [
+              {name:"Dashboard",value:"bdashboard"},
+              {name:"Add +",value:"addproperty"},
+              {name:"Manage",value:"manage"},
+              {name:"Generate Docs.",value:"gendocs"},
+              {name:"Maintain",value:"mrequestshome"},
+              {name:"Insights✨",value:"insights"}
+            ]}/>
+            
             <div style={{"text-align":"center"}}>
             <h2>Add your property🏘️!</h2>
             <em>Add and manage them with ease!</em>
@@ -110,7 +119,7 @@ export function Add(){
             <div className="col">
             <Select
               style={{ marginTop: 20, zIndex: 2 }}
-              data={['Residential', 'Commercial']}
+              data={['Residential']}
               placeholder="Pick one"
               label="Select property type"
               classNames={classes}
