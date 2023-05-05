@@ -37,7 +37,13 @@ router.get("/viewpropo",async (req,res)=>{
     const propData = await Property.find({_id:req.query.propid}).lean();
     var t_id = propData[0].tenant_id;
     var accData = await Account.find({_id:t_id});
-    propData[0].t_name = accData[0].name;
+    try{
+        propData[0].t_name = accData[0].name;
+    }
+    catch{
+        propData[0].t_name = "";
+    }
+    
     res.end(JSON.stringify(propData));
 
 })
