@@ -15,7 +15,7 @@
  * Manage Property
  * Predict House Rent
  * Document Generator
- * Pay Rent
+ * Pay Rent(using RazorPay)
  * Maintenance
  * Insights
  
